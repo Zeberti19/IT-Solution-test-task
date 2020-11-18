@@ -1,0 +1,28 @@
+.layout1__body {
+    background: rgb(243,243,243);
+    color: #525453;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 10% 5%;
+    width: 90%;
+    height: 80%;
+}
+@media (min-width: 1024px) {
+    .layout1__body {
+        padding: 0;
+        width: 100%;
+    }
+}
+main {
+    background: #f3f5f7;
+}
+@media (min-width: 1024px) {
+    main {
+        height: 80%;
+    }
+}
+header, footer {}
+@media (min-width: 1024px) {
+    header, footer {
+        height: 10%;
+    }
+}
