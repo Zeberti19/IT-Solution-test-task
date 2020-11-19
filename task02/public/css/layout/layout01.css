@@ -1,12 +1,14 @@
 .layout1__body {
     background: #f3f3f3;
     color: #525453;
+    font-size: 0.7rem;
     font-family: 'Source Sans Pro', sans-serif;
     margin: 0;
 }
 .main-content {
-    background: #f3f5f7;
+    background: #fffdff;
     padding: 5rem 4%;
+    min-height: calc(100% - 10rem);
     width: 92%;
 }
 @media (min-width: 1024px) {

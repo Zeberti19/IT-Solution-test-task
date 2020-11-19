@@ -5,7 +5,7 @@ class Page02View {
 
     drawNav(data){
         const Nav01=new Nav01Widget('nav01' );
-        document.getElementById('header_main').innerHTML=Nav01.draw(data);
+        document.getElementById('main-content').innerHTML=Nav01.draw(data);
         Nav01.init();
     }
 }

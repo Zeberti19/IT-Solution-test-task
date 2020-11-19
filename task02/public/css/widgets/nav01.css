@@ -1,5 +1,31 @@
+.nav__item
+{
+    color: #2a2c2b;
+    font-weight: normal;
+    letter-spacing: 0.1rem;
+    margin: 1rem 0 0 0;
+}
+.nav__item_main
+{
+    font-weight: bold;
+}
 .nav__items_children
 {
     display: none;
-    margin: 0 0 0 1rem;
+    margin: 0 0 0 2rem;
+}
+.nav__item-header
+{
+    display: flex;
+    align-items: center;
+}
+.nav__item-svg
+{
+    height: 2rem;
+    width: 2rem;
+    transform: rotate(-90deg);
+}
+.nav__item-svg_closed
+{
+    transform: rotate(90deg);
 }
