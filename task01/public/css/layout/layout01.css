@@ -11,8 +11,8 @@
 }
 @media (min-width: 1024px) {
     .main-content {
-        padding: 5rem 11%;
-        width: 78%;
+        padding: 5rem 5%;
+        width: 90%;
     }
 }
 .header_main, .footer_main {}

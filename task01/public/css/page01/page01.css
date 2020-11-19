@@ -151,23 +151,3 @@ html
     width: 100%;
 }
 /**====================================================*/
-.figure-mini
-{
-    margin: 0;
-}
-@media (min-width: 1024px) {
-    .figure-mini
-    {
-        margin: 1rem;
-    }
-}
-.figure-mini__icon
-{
-    display: inline-block;
-}
-.figure-mini__text
-{
-    display: inline-block;
-    margin-left: 0.5rem;
-}
-/**====================================================*/

@@ -1,0 +1,17 @@
+.figure-mini
+{
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+@media (min-width: 1024px) {
+    .figure-mini
+    {
+        margin: 1rem;
+    }
+}
+.figure-mini__icon {}
+.figure-mini__text
+{
+    margin-left: 0.5rem;
+}

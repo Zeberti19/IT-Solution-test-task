@@ -3,21 +3,12 @@ class Page01View {
 
     constructor() {}
 
-    //TODO вынести это в отдельный JS
-    _drawFigureMini(svg,label){
-        return '<figure class="figure-mini">' +
-        '<div class="figure-mini__icon">' +
-            svg +
-        '</div>' +
-        '<figcaption class="figure-mini__text">' + label + '</figcaption>' +
-        '</figure>'
-    }
-
     _drawService(data){
+        const FigureWidget = new FigureMiniWidget();
         let actions = '';
         for(let n=0; n<data.actions.length;n++)
         {
-            actions += this._drawFigureMini(data.actions[n].actionSvg, data.actions[n].actionName);
+            actions += FigureWidget.draw(data.actions[n].actionSvg, data.actions[n].actionName);
         }
         return '<div class="service-container">' +
             '<div class="service-container__header-container">' +
