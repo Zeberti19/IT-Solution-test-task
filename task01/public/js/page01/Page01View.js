@@ -12,8 +12,8 @@ class Page01View {
         }
         return '<div class="service-container">' +
             '<div class="service-container__header-container">' +
-            '<h2 class="service-container__header">' + data.name + '</h2>' +
-            '<p class="service-container__description">' + data.description + '</p>' +
+            '<h2 class="service-container__header">' + HtmlHelper.encode(data.name) + '</h2>' +
+            '<p class="service-container__description">' + HtmlHelper.encode(data.description) + '</p>' +
             '</div>' +
             '<div class="service-container__icons-container">' +
             '<div class="service-container__icon-container_big">' +

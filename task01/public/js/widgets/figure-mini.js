@@ -8,7 +8,7 @@ class FigureMiniWidget {
         '<div class="figure-mini__icon">' +
             svg +
         '</div>' +
-        '<figcaption class="figure-mini__text">' + label + '</figcaption>' +
+        '<figcaption class="figure-mini__text">' + HtmlHelper.encode( label ) + '</figcaption>' +
         '</figure>'
     }
 }
