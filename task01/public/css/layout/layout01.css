@@ -7,11 +7,13 @@
 .main-content {
     background: #f3f5f7;
     padding: 5rem 4%;
+    min-height: calc(100% - 10rem);
     width: 92%;
 }
 @media (min-width: 1024px) {
     .main-content {
         padding: 5rem 5%;
+        min-height: auto;
         width: 90%;
     }
 }
