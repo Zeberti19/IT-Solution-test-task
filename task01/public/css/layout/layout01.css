@@ -1,19 +1,13 @@
 .layout1__body {
-    background: rgb(243,243,243);
+    background: #f3f3f3;
     color: #525453;
     font-family: 'Source Sans Pro', sans-serif;
-    padding: 10% 5%;
-    width: 90%;
-    height: 80%;
-}
-@media (min-width: 1024px) {
-    .layout1__body {
-        padding: 0;
-        width: 100%;
-    }
+    margin: 0;
 }
 main {
     background: #f3f5f7;
+    padding: 10% 4%;
+    width: 92%;
 }
 @media (min-width: 1024px) {
     main {
@@ -23,6 +17,7 @@ main {
 header, footer {}
 @media (min-width: 1024px) {
     header, footer {
+        background: #f3f3f3;
         height: 10%;
     }
 }
