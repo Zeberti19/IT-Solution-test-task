@@ -1,3 +1,13 @@
+.nav__btn-open-container
+{
+    display: flex;
+    justify-content: flex-end;
+}
+.nav__btn-open
+{
+    height: 1rem;
+    width: 1rem;
+}
 .nav__item
 {
     color: #2a2c2b;
