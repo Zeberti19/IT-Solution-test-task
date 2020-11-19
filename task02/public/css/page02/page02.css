@@ -1,0 +1,153 @@
+html
+{
+    font-size: 0.9rem;
+}
+.article_simple
+{
+    color: #525453;
+    position: relative;
+    padding: 1.5rem 6% 0;
+}
+@media (min-width: 1024px) {
+    .article_simple
+    {
+        width: 38%;
+    }
+}
+.article_simple__header-container
+{
+    color: #2a2c2b;
+}
+@media (min-width: 1024px) {
+    .article_simple__header-container
+    {
+        font-size: 1.5rem;
+    }
+}
+.article_simple__text-container
+{
+    line-height: 2rem;
+}
+.article_simple__href-container{
+    position: absolute;
+    top: 0;
+    height: 1.5rem;
+}
+.article_simple__href{
+    color: #2a2c2b;
+    font-weight: bold;
+}
+/**====================================================*/
+.main-content
+{
+    display: flex;
+    flex-direction: column;
+}
+@media (min-width: 1024px) {
+    .main-content {
+        flex-direction: row;
+    }
+}
+/**====================================================*/
+.services-section {}
+@media (min-width: 1024px) {
+    .services-section
+    {
+        width: 50%;
+    }
+}
+/**====================================================*/
+.service-container
+{
+    background-color: #ffffff;
+    margin: 0.5rem;
+    padding: 1rem;
+}
+@media (min-width: 1024px) {
+    .service-container
+    {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        padding: 1rem 5rem 1rem 1rem;
+    }
+}
+.service-container__description
+{
+    margin: 0.5rem 0;
+}
+@media (min-width: 1024px) {
+    .service-container__icon-container_big
+    {
+        position: absolute;
+        left: 1rem;
+        width: 5rem;
+    }
+}
+.service-container__header-container {}
+@media (min-width: 1024px) {
+    .service-container__header-container
+    {
+        margin: 0 0 0 6rem; /*TODO здесь должна быть выражание препроцессора $iconWidth + 1rem*/
+    }
+}
+.service-container__header
+{
+    color: #2a2c2b;
+    font-size: 1rem;
+    margin: 0;
+}
+.service-container__icons-container
+{
+    display: flex;
+}
+.service-container__icon-container_big
+{
+    display: flex;
+    position: relative;
+}
+@media (min-width: 1024px) {
+    .service-container__icon-container_big
+    {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translate(0%,-50%);
+        width: 5rem; /*TODO здесь должна быть переменная препроцессора $iconWidth*/
+    }
+}
+.service-container__icon-image
+{
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+}
+.service-container__actions
+{
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 0 1rem;
+}
+@media (min-width: 1024px) {
+    .service-container .figure-mini:first-child {
+        margin: 0 1rem 0 1rem;
+    }
+    .service-container .figure-mini {
+        margin: 1rem 1rem 0 1rem;
+    }
+}
+.services__all-show
+{
+    align-items: center;
+    justify-content: center;
+    background-color: #2a2c2b;
+    color: #ffffff;
+    display: flex;
+    font-weight: bold;
+    height: 4rem;
+    width: 100%;
+}
+/**====================================================*/
