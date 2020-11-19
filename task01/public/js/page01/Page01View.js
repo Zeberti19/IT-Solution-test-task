@@ -22,7 +22,7 @@ class Page01View {
         return '<div class="service-container">' +
             '<div class="service-container__header-container">' +
             '<h2 class="service-container__header">' + data.name + '</h2>' +
-            '<p>' + data.description + '</p>' +
+            '<p class="service-container__description">' + data.description + '</p>' +
             '</div>' +
             '<div class="service-container__icons-container">' +
             '<div class="service-container__icon-container_big">' +
