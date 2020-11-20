@@ -1,6 +1,15 @@
 .nav__menu
 {
     display: none;
+    flex-direction: column;
+}
+@media (min-width: 1024px)
+{
+    .nav__menu
+    {
+        display: flex;
+        flex-direction: row;
+    }
 }
 .nav__btn-open
 {
@@ -9,6 +18,13 @@
     position: absolute;
     right: 1.15rem;
     top: 1.35rem;
+}
+@media (min-width: 1024px)
+{
+    .nav__btn-open
+    {
+        display: none;
+    }
 }
 .nav__item
 {
@@ -20,6 +36,13 @@
 .nav__item_main
 {
     font-weight: bold;
+}
+@media (min-width: 1024px)
+{
+    .nav__item_main
+    {
+        margin: 0 1rem 0 0;
+    }
 }
 .nav__items_children
 {
@@ -37,6 +60,13 @@
     width: 1.6rem;
     margin: 0 0.95rem 0 0;
     transform: rotate(-90deg);
+}
+@media (min-width: 1024px)
+{
+    .nav__item-svg
+    {
+        display: none;
+    }
 }
 .nav__item-svg_closed
 {

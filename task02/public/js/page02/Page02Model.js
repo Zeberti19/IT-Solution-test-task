@@ -31,33 +31,33 @@ class Page02Model {
                 name: 'FÜR BEWERBER',
                 children: [
                     {
-                        name: 'Gebäudereinigung2'
+                        name: 'Lvl2. Gebäudereinigung2'
                     },
                     {
-                        name: 'Betriebsverpflegung2',
+                        name: 'Lvl2. Betriebsverpflegung2',
                         children: [
                             {
-                                name: 'Random number: ' + Math.random()*1000
+                                name: 'Lvl3. Random number: ' + Math.random()*1000
                             },
                             {
-                                name: 'Random number: ' + Math.random()*1000
+                                name: 'Lvl3. Random number: ' + Math.random()*1000
                             },
                             {
-                                name: 'Random number: ' + Math.random()*1000
+                                name: 'Lvl3. Random number: ' + Math.random()*1000
                             }
                         ]
                     },
                     {
-                        name: 'Personaldienstleistungen2'
+                        name: 'Lvl2. Personaldienstleistungen2'
                     },
                     {
-                        name: 'Gastronomie-Dienstleistunge2',
+                        name: 'Lvl2. Gastronomie-Dienstleistunge2',
                         children: [
                             {
-                                name: 'Random number: ' + Math.random()*1000
+                                name: 'Lvl3. Random number: ' + Math.random()*1000
                             },
                             {
-                                name: 'Random number: ' + Math.random()*1000
+                                name: 'Lvl3. Random number: ' + Math.random()*1000
                             }
                         ]
                     }
@@ -67,19 +67,19 @@ class Page02Model {
                 name: 'ÜBER UNS',
                 children: [
                     {
-                        name: 'Gebäudereinigung3'
+                        name: 'Lvl2. Gebäudereinigung3'
                     },
                     {
-                        name: 'Betriebsverpflegung3',
+                        name: 'Lvl2. Betriebsverpflegung3',
                     },
                     {
-                        name: 'Personaldienstleistungen3'
+                        name: 'Lvl2. Personaldienstleistungen3'
                     },
                     {
-                        name: 'Gastronomie-Dienstleistunge3',
+                        name: 'Lvl2. Gastronomie-Dienstleistunge3',
                     },
                     {
-                        name: 'Gastronomie-Dienstleistunge3',
+                        name: 'Lvl2. Gastronomie-Dienstleistunge3',
                     }
                 ]
             },
@@ -87,46 +87,46 @@ class Page02Model {
                 name: 'KONTAKT',
                 children: [
                     {
-                        name: 'Gebäudereinigung4',
+                        name: 'Lvl2. Gebäudereinigung4',
                         children: [
                             {
-                                name: 'Random number: ' + Math.random()*1000
+                                name: 'Lvl3. Random number: ' + Math.random()*1000
                             },
                             {
-                                name: 'Random number: ' + Math.random()*1000
+                                name: 'Lvl3. Random number: ' + Math.random()*1000
                             }
                         ]
                     },
                     {
-                        name: 'Betriebsverpflegung4',
+                        name: 'Lvl2. Betriebsverpflegung4',
                         children: [
                             {
-                                name: 'Random number: ' + Math.random()*1000
+                                name: 'Lvl3. Random number: ' + Math.random()*1000
                             },
                             {
-                                name: 'Random number: ' + Math.random()*1000
+                                name: 'Lvl3. Random number: ' + Math.random()*1000
                             }
                         ]
                     },
                     {
-                        name: 'Personaldienstleistungen4',
+                        name: 'Lvl2. Personaldienstleistungen4',
                         children: [
                             {
-                                name: 'Random number: ' + Math.random()*1000
+                                name: 'Lvl3. Random number: ' + Math.random()*1000
                             },
                             {
-                                name: 'Random number: ' + Math.random()*1000
+                                name: 'Lvl3. Random number: ' + Math.random()*1000
                             },
                             {
-                                name: 'Random number: ' + Math.random()*1000
+                                name: 'Lvl3. Random number: ' + Math.random()*1000
                             }
                         ]
                     },
                     {
-                        name: 'Gastronomie-Dienstleistunge4',
+                        name: 'Lvl2. Gastronomie-Dienstleistunge4',
                         children: [
                             {
-                                name: 'Random number: ' + Math.random()*1000
+                                name: 'Lvl3. Random number: ' + Math.random()*1000
                             }
                         ]
                     }

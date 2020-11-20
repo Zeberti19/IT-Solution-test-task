@@ -2,6 +2,8 @@
 //TODO сделать рефакторинг
 class Nav01Widget {
 
+    _isMobile = null;
+
     _selectors={};
 
     _svg={};
@@ -30,47 +32,36 @@ class Nav01Widget {
     }
 
     init(){
-        const items = document.getElementById(this._selectors.id)
-            .getElementsByClassName(this._selectors.itemHeaderText);
+        const items = document.querySelectorAll('#' + this._selectors.id + ' .' + this._selectors.itemHeaderText);
         let self=this;
         for( let n=0; n<items.length; n++ )
         {
             items[n].onclick=function(){ self._toggleChildren(this); };
         }
-        document.getElementById(this._selectors.btnOpenId).onclick=function(){ self._toggleNav(this) };
+        document.querySelector('#' + this._selectors.btnOpenId).onclick=function(){ self._toggleNav(this) };
+        //
+        window.addEventListener('resize',function(){
+            self._onResize();
+        });
     }
 
-    /**
-     * Отображает/скрывает навигатационную панель
-     *
-     * @private
-     */
-    _toggleNav(element){
-        const navMenu=document.getElementById(this._selectors.id).getElementsByClassName(this._selectors.navMenu)[0];
-        if (!navMenu.style.display || 'none' === navMenu.style.display)
+    _mobileDetect(){
+        return this._isMobile = !window.matchMedia("(min-width: 1024px)").matches;
+    }
+
+    _setNavVisible(visible = true){
+        const navMenu=document.querySelector('#' + this._selectors.id
+            + ' .' + this._selectors.navMenu);
+        const btnOpen=document.querySelector('#' + this._selectors.btnOpenId);
+        if (visible)
         {
-            navMenu.style.display='block';
-            element.innerHTML=this._svg.cross;
+            navMenu.style.display='flex';
+            btnOpen.innerHTML=this._svg.cross;
         }
         else
         {
             navMenu.style.display='none';
-            element.innerHTML=this._svg.burger;
-        }
-    }
-
-    /**
-     * Скрываем все дочерние пункты меню во всем навигаторе
-     *
-     * @private
-     */
-    _hideItemsChildrenAll(){
-        let elements = document.getElementById(this._selectors.id)
-            .getElementsByClassName(this._selectors.items_children);
-        for(let n=0; n<elements.length; n++)
-        {
-            elements[n].style.display='none';
-            this._setItemOpen(elements[n].parentElement, false);
+            btnOpen.innerHTML=this._svg.burger;
         }
     }
 
@@ -78,7 +69,7 @@ class Nav01Widget {
         let svgContainer = false;
         if (item.children && item.children.length>1)
         {
-            svgContainer = item.getElementsByClassName(this._selectors.itemSvg)[0];
+            svgContainer = item.querySelector('.' + this._selectors.itemSvg);
             if (open)
             {
                 svgContainer.classList.remove(this._selectors.itemSvg_closed);
@@ -91,32 +82,55 @@ class Nav01Widget {
     }
 
     /**
-     * Показывает все родительские пункты меню в КОМПАКТНОМ виде для указаного пункта меню
+     * Скрываем все дочерние пункты меню во всем навигаторе
      *
-     * @param item Пункт меню
      * @private
      */
-    _showParentsByItem(item){
+    _hideItemsChildrenAll(){
+        let elements = document.querySelectorAll('#' + this._selectors.id + ' .' + this._selectors.items_children);
+        for(let n=0; n<elements.length; n++)
+        {
+            elements[n].style.display='none';
+            this._setItemOpen(elements[n].parentElement, false);
+        }
+    }
+
+    /**
+     * Показывает все родительские пункты меню для указаного пункта меню.
+     * Может показать как в компактном режиме (не буду показаные соседние пункты у родительских элементов), так и без него
+     *
+     * @param item Пункт меню
+     * @param isCompact Компактный режим отображения
+     * @private
+     */
+    _showParentsByItem(item, isCompact=false){
+        console.log('_showParentsByItem');
+        console.log(item);
+        console.log(isCompact);
         while(item)
         {
             //условие выхода - это когда мы дошли до первого уровня дерева
             if (item.classList.contains(this._selectors.item_main)) break;
             //
             let itemChildren = item.parentElement;
-            //показываем родительский блок с элементами меню, но ВСЕ элементы, кроме данного скрываем, чтобы не мешались
+            //показываем родительский блок с элементами меню
             itemChildren.style.display='block';
             this._setItemOpen(itemChildren.parentElement);
-            for(let n=0; n<itemChildren.children.length; n++)
-            {
-                if (item === itemChildren.children[n]) continue;
-                itemChildren.children[n].style.display='none';
-                this._setItemOpen(itemChildren.children[n], false);
-            }
+            //в компактном режиме ВСЕ элементы, кроме данного скрываем, чтобы не мешались
+            if (isCompact)
+                for(let n=0; n<itemChildren.children.length; n++)
+                {
+                    if (item === itemChildren.children[n]) continue;
+                    itemChildren.children[n].style.display='none';
+                    this._setItemOpen(itemChildren.children[n], false);
+                }
             //
             item = itemChildren.parentElement;
         }
     }
+
     _toggleChildren(element){
+        console.log('_toggleChildren');
         /**
          * Контейнер дочерних пунктов меню, который надо показать/скрыть
          */
@@ -136,8 +150,10 @@ class Nav01Widget {
                 itemsChildren.children[n].style.display='block';
                 //this._setItemVisible(itemsChildren.children[n]);
             }
-            //в завершении показываем все родительские пункты меню в компактном режиме
-            this._showParentsByItem(itemsChildren.parentElement);
+            //в завершении показываем все родительские пункты
+            //в зависимости от мобильной версии или нет, показываем их компактно или нет
+            console.log(this._isMobile);
+            this._showParentsByItem(itemsChildren.parentElement, this._isMobile);
         }
         //если "itemsChildren" видимый, то скрываем
         else
@@ -152,6 +168,40 @@ class Nav01Widget {
                 this._setItemOpen(item.children[n], false);
             }
             itemsChildren.style.display='none';
+        }
+    }
+
+    /**
+     * Отображает/скрывает навигатационную панель
+     *
+     * @private
+     */
+    _toggleNav(){
+        const navMenu=document.querySelector('#' + this._selectors.id
+            + ' .' + this._selectors.navMenu);
+        if (!navMenu.style.display || 'none' === navMenu.style.display)
+        {
+            this._setNavVisible();
+        }
+        else
+        {
+            this._setNavVisible(false);
+        }
+    }
+
+    _onResize(){
+        //в мобильной версии навигациия по-умолчанию навигацию всегда скрыта
+        if (this._mobileDetect())
+        {
+            this._setNavVisible(false);
+
+        }
+        //поскольку в мобильной версии навигациия может быть скрыта, то после ресайза нужно обязательно показать навигацию
+        //в настольной версиии
+        else
+        {
+            this._hideItemsChildrenAll(); //также скрываем все элементы, которые в мобильной версии могли быть показаны
+            this._setNavVisible();
         }
     }
 
@@ -179,6 +229,8 @@ class Nav01Widget {
     }
 
     draw(data){
+        this._mobileDetect();
+
         let html =
             '<div id="' +  this._selectors.id + '"' + ' class="' + this._selectors.nav + '">' +
                 '<div id="' + this._selectors.btnOpenId +'" class="' + this._selectors.btnOpenCls +'">' +
