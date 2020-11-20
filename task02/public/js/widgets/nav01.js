@@ -24,11 +24,12 @@ class Nav01Widget {
         this._selectors.item_hasChildren='nav__item_has-children';
         this._selectors.itemSvg='nav__item-svg';
         this._selectors.itemSvg_closed='nav__item-svg_closed';
-        this._selectors.itemHeader='nav__item-header';
         this._selectors.items_children='nav__items_children';
+        this._selectors.itemHeader='nav__item-header';
         this._selectors.itemHeaderText='nav__item-header-text';
         this._selectors.itemHeaderTextSimple='nav__item-header-text_simple';
         this._selectors.itemHeaderTextBold='nav__item-header-text_bold';
+        this._selectors.itemHeaderUnderline='nav__item-header-underline';
         this._selectors.nav='nav';
         this._selectors.navMenu='nav__menu';
         //
@@ -126,11 +127,15 @@ class Nav01Widget {
      * @private
      */
     _hideItemsChildrenAll(){
+        console.log('_hideItemsChildrenAll');
         let elements = document.querySelectorAll('#' + this._selectors.id + ' .' + this._selectors.items_children);
         for(let n=0; n<elements.length; n++)
         {
+            let item = elements[n].parentElement;
+            let itemHeaderText=item.querySelector(' .' + this._selectors.itemHeaderText);
             elements[n].style.display='none';
-            this._setItemOpen(elements[n].parentElement, false);
+            itemHeaderText.classList.remove(this._selectors.itemHeaderUnderline);
+            this._setItemOpen(item, false);
         }
     }
 
@@ -138,38 +143,48 @@ class Nav01Widget {
      * Показывает все родительские пункты меню для указаного пункта меню.
      * Может показать как в компактном режиме (не буду показаные соседние пункты у родительских элементов), так и без него
      *
-     * @param item Пункт меню
+     * @param currentItem Пункт меню
      * @param isCompact Компактный режим отображения
      * @private
      */
-    _showParentsByItem(item, isCompact=false){
-        while(item)
+    _showParentsByItem(currentItem, isCompact=false)
+    {
+        do
         {
-            //условие выхода - это когда мы дошли до первого уровня дерева
-            if (item.classList.contains(this._selectors.item_main)) break;
-            //
-            let itemChildren = item.parentElement;
+            //сразу подчеркиваем этот пункт меню
+            let currentItemHeaderText = currentItem.querySelector('.'+ this._selectors.itemHeaderText);
+            currentItemHeaderText.classList.add( this._selectors.itemHeaderUnderline );
+
+            //условие выхода - после обработки самого первого уровеня навигации (для первого уровня обработка урезанная)
+            if (currentItem.classList.contains(this._selectors.item_main)) break;
+
+            //если же это не первый уровень....
             //показываем родительский блок с элементами меню
-            itemChildren.style.display='block';
-            this._setItemOpen(itemChildren.parentElement);
-            //в компактном режиме ВСЕ элементы, кроме данного скрываем, чтобы не мешались
+            let previousItemChildren = currentItem.parentElement;
+            previousItemChildren.style.display='block';
+            this._setItemOpen(previousItemChildren.parentElement);
+            //если компактный режим, то ВСЕ элементы, кроме данного элемента скрываем, чтобы не мешались
             if (isCompact)
-                for(let n=0; n<itemChildren.children.length; n++)
+                for(let n=0; n<previousItemChildren.children.length; n++)
                 {
-                    if (item === itemChildren.children[n]) continue;
-                    itemChildren.children[n].style.display='none';
-                    this._setItemOpen(itemChildren.children[n], false);
+                    let child = previousItemChildren.children[n];
+                    if (currentItem === child) continue;
+                    child.style.display='none';
+                    this._setItemOpen(child, false);
                 }
             //
-            item = itemChildren.parentElement;
+            currentItem = previousItemChildren.parentElement;
         }
+        while(true)
     }
 
     _toggleChildren(element){
+        const item=element.parentElement.parentElement;
+        const itemHeaderText=item.querySelector('.' + this._selectors.itemHeaderText);
         /**
          * Контейнер дочерних пунктов меню, который надо показать/скрыть
          */
-        const itemsChildren=element.parentElement.nextSibling;
+        const itemsChildren=item.querySelector('.' + this._selectors.items_children );
         //если нет потомков, то ничего делать не надо
         if (!itemsChildren) return;
         //если "itemsChildren" невидимый, то показываем
@@ -177,8 +192,9 @@ class Nav01Widget {
         {
             //скрываем все элементы "items_children", чтобы потом показать только нужные
             this._hideItemsChildrenAll();
-            this._setItemOpen(itemsChildren.parentElement);
             //потом показываем  элемент "itemsChildren" и всех его потомков
+            itemHeaderText.classList.add( this._selectors.itemHeaderUnderline );
+            this._setItemOpen(itemsChildren.parentElement);
             itemsChildren.style.display='block';
             for(let n=0; n<itemsChildren.children.length; n++)
             {
@@ -244,12 +260,18 @@ class Nav01Widget {
         const itemSvg = hasChildren ?
                         '<div class="' + this._selectors.itemSvg + ' ' + this._selectors.itemSvg_closed + '">' + this._svg.arrowSvg + '</div>'
                         : '';
+        // const itemUnderline = hasChildren ?
+        //                     '<div class="' + this._selectors.itemUnderline + '">_</div>'
+        //                     : '';
         const itemHeaderTextStyle= hasChildren ? ' ' + this._selectors.itemHeaderTextBold : ' ' + this._selectors.itemHeaderTextSimple;
         let html='';
         html += '<div class="' + this._selectors.item + itemMainClass + hasChildren + '" >';
         html += '<div class="' + this._selectors.itemHeader + itemHeaderTextStyle + '">' +
             itemSvg + '<span class="' + this._selectors.itemHeaderText +'">' + HtmlHelper.encode( data.name ) + '</span>' +
-            '</div>';
+            '</div>'
+            //+ itemUnderline
+        ;
+
         if (hasChildren)
         {
             html += '<div class="' + this._selectors.items_children + '">';

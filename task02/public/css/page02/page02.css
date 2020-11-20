@@ -6,18 +6,26 @@
 {
     .main-content__section-left
     {
-        display: block;
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
 }
 .main-content__section-right
 {
     display: flex;
 }
+@media (min-width: 1024px)
+{
+    .main-content__section-right
+    {
+        margin-left: 2rem;
+    }
+}
 /**====================================================*/
 .logo
 {
     display: none;
-    margin: 0.65rem 0 0 6.1rem;
 }
 @media (min-width: 1024px)
 {

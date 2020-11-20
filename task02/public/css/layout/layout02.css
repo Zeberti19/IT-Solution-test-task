@@ -24,7 +24,8 @@
         justify-content: space-between;
         height: 19rem;
         min-height: auto;
-        padding: 1.35rem 6.75rem;
-        width: calc(100% - 13.5rem);
+        /*padding: 1.35rem 6.75rem;*/
+        padding: 1.45rem;
+        width: calc(100% - 2.9rem);
     }
 }
