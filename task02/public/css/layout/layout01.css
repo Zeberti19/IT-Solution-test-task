@@ -7,9 +7,9 @@
 }
 .main-content {
     background: #fffdff;
-    padding: 5rem 4%;
+    padding: 6.6rem 1rem;
     min-height: calc(100% - 10rem);
-    width: 92%;
+    width: calc(100% - 2rem);
 }
 @media (min-width: 1024px) {
     .main-content {

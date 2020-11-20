@@ -1,12 +1,14 @@
-.nav__btn-open-container
+.nav__menu
 {
-    display: flex;
-    justify-content: flex-end;
+    display: none;
 }
 .nav__btn-open
 {
-    height: 1rem;
-    width: 1rem;
+    height: 1.6rem;
+    width: 1.6rem;
+    position: absolute;
+    right: 1.15rem;
+    top: 1.35rem;
 }
 .nav__item
 {
@@ -31,8 +33,9 @@
 }
 .nav__item-svg
 {
-    height: 2rem;
-    width: 2rem;
+    height: 1.6rem;
+    width: 1.6rem;
+    margin: 0 0.95rem 0 0;
     transform: rotate(-90deg);
 }
 .nav__item-svg_closed

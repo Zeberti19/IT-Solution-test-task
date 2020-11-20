@@ -11,16 +11,18 @@ class Nav01Widget {
         if (!id) id='nav01-widget-' + Math.random()*1000;
         this._selectors.id=id;
         //
-        this._selectors.item='nav__item';
         this._selectors.btnOpenId=this._selectors.id + '__nav__btn-open';
         this._selectors.btnOpenContainer='nav__btn-open-container';
         this._selectors.btnOpenCls='nav__btn-open';
+        this._selectors.item='nav__item';
         this._selectors.item_main='nav__item_main';
         this._selectors.itemSvg='nav__item-svg';
         this._selectors.itemSvg_closed='nav__item-svg_closed';
         this._selectors.itemHeader='nav__item-header';
         this._selectors.items_children='nav__items_children';
         this._selectors.itemHeaderText='nav__item-header-text';
+        this._selectors.nav='nav';
+        this._selectors.navMenu='nav__menu';
         //
         this._svg.arrowSvg='<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="visible" preserveAspectRatio="none" viewBox="0 0 34 34" xml:space="preserve" y="0px" x="0px" id="Layer_1_1605199411491" width="32" height="32"><g transform="translate(1, 1)"><style type="text/css">	.st0_1605199411491{fill:#2A2C2B;}</style><g>	<path d="M13.5,22c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l4.3-4.3l-4.3-4.3c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5,5   c0.4,0.4,0.4,1,0,1.4l-5,5C14,21.9,13.8,22,13.5,22z" class="st0_1605199411491" vector-effect="non-scaling-stroke"/></g></g></svg>';
         this._svg.burger='<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"\t viewBox="0 0 250.579 250.579" style="enable-background:new 0 0 250.579 250.579;" xml:space="preserve"><g id="Menu">\t<path style="fill-rule:evenodd;clip-rule:evenodd;" d="M22.373,76.068h205.832c12.356,0,22.374-10.017,22.374-22.373\t\tc0-12.356-10.017-22.373-22.374-22.373H22.373C10.017,31.323,0,41.339,0,53.696C0,66.052,10.017,76.068,22.373,76.068z\t\t M228.205,102.916H22.373C10.017,102.916,0,112.933,0,125.289c0,12.357,10.017,22.373,22.373,22.373h205.832\t\tc12.356,0,22.374-10.016,22.374-22.373C250.579,112.933,240.561,102.916,228.205,102.916z M228.205,174.51H22.373\t\tC10.017,174.51,0,184.526,0,196.883c0,12.356,10.017,22.373,22.373,22.373h205.832c12.356,0,22.374-10.017,22.374-22.373\t\tC250.579,184.526,240.561,174.51,228.205,174.51z"/></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>';
@@ -34,6 +36,26 @@ class Nav01Widget {
         for( let n=0; n<items.length; n++ )
         {
             items[n].onclick=function(){ self._toggleChildren(this); };
+        }
+        document.getElementById(this._selectors.btnOpenId).onclick=function(){ self._toggleNav(this) };
+    }
+
+    /**
+     * Отображает/скрывает навигатационную панель
+     *
+     * @private
+     */
+    _toggleNav(element){
+        const navMenu=document.getElementById(this._selectors.id).getElementsByClassName(this._selectors.navMenu)[0];
+        if (!navMenu.style.display || 'none' === navMenu.style.display)
+        {
+            navMenu.style.display='block';
+            element.innerHTML=this._svg.cross;
+        }
+        else
+        {
+            navMenu.style.display='none';
+            element.innerHTML=this._svg.burger;
         }
     }
 
@@ -53,8 +75,6 @@ class Nav01Widget {
     }
 
     _setItemOpen(item, open = true){
-        console.log('_setItemOpen');
-        console.log(item);
         let svgContainer = false;
         if (item.children && item.children.length>1)
         {
@@ -122,9 +142,7 @@ class Nav01Widget {
         //если "itemsChildren" видимый, то скрываем
         else
         {
-            console.log('_toggleChildren hide');
             let item = itemsChildren.parentElement.parentElement;
-            console.log(itemsChildren.parentElement,);
             this._setItemOpen(itemsChildren.parentElement, false);
             //скрываем элемент "items_children", но показываем все соседние пункты меню (если они есть)
             for(let n=0; n<item.children.length; n++)
@@ -161,15 +179,12 @@ class Nav01Widget {
     }
 
     draw(data){
-        console.log(this._svg.burger);
         let html =
-            '<div id="' +  this._selectors.id + '">' +
-                '<div class="' + this._selectors.btnOpenContainer +'">' +
-                    '<div id="' + this._selectors.btnOpenId +'" class="' + this._selectors.btnOpenCls +'">' +
-                        this._svg.burger +
-                    '</div>' +
+            '<div id="' +  this._selectors.id + '"' + ' class="' + this._selectors.nav + '">' +
+                '<div id="' + this._selectors.btnOpenId +'" class="' + this._selectors.btnOpenCls +'">' +
+                    this._svg.burger +
                 '</div>' +
-            '<nav class="nav">';
+                '<nav class="' + this._selectors.navMenu + '">';
         for (let n=0; n<data.length; n++)
         {
             html += this._drawItem(data[n], true);
