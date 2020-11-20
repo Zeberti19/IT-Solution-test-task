@@ -1,13 +1,25 @@
 'use strict';
-//TODO сделать рефакторинг
 class Nav01Widget {
 
     _isMobile = null;
 
     _eventHandlers={};
 
+    /**
+     * Объект для хранения различных классов и ИД html элементов.
+     * Потом они используется как в селекторах, так и в наименованиях класса или ИД
+     *
+     * @type {{}}
+     * @private
+     */
     _selectors={};
 
+    /**
+     * SVG изображения этого виджета
+     *
+     * @type {{}}
+     * @private
+     */
     _svg={};
 
     constructor(id = null)
@@ -16,9 +28,8 @@ class Nav01Widget {
         const self = this;
         this._selectors.id=id;
         //
-        this._selectors.btnOpenId=this._selectors.id + '__nav__btn-open';
         this._selectors.btnOpenContainer='nav__btn-open-container';
-        this._selectors.btnOpenCls='nav__btn-open';
+        this._selectors.btnOpen='nav__btn-open';
         this._selectors.item='nav__item';
         this._selectors.item_main='nav__item_main';
         this._selectors.item_hasChildren='nav__item_has-children';
@@ -37,15 +48,15 @@ class Nav01Widget {
         this._svg.burger='<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"\t viewBox="0 0 250.579 250.579" style="enable-background:new 0 0 250.579 250.579;" xml:space="preserve"><g id="Menu">\t<path style="fill-rule:evenodd;clip-rule:evenodd;" d="M22.373,76.068h205.832c12.356,0,22.374-10.017,22.374-22.373\t\tc0-12.356-10.017-22.373-22.374-22.373H22.373C10.017,31.323,0,41.339,0,53.696C0,66.052,10.017,76.068,22.373,76.068z\t\t M228.205,102.916H22.373C10.017,102.916,0,112.933,0,125.289c0,12.357,10.017,22.373,22.373,22.373h205.832\t\tc12.356,0,22.374-10.016,22.374-22.373C250.579,112.933,240.561,102.916,228.205,102.916z M228.205,174.51H22.373\t\tC10.017,174.51,0,184.526,0,196.883c0,12.356,10.017,22.373,22.373,22.373h205.832c12.356,0,22.374-10.017,22.374-22.373\t\tC250.579,184.526,240.561,174.51,228.205,174.51z"/></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>';
         this._svg.cross='<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="visible" preserveAspectRatio="none" viewBox="0 0 34 34" xml:space="preserve" y="0px" x="0px" id="Layer_1_1605199411492" width="32" height="32"><g transform="translate(1, 1)"><style type="text/css">	.st0_1605199411492{fill:#2A2C2B;}</style><path d="M17.4,16l7.3-7.3c0.4-0.4,0.4-1,0-1.4c-0.4-0.4-1-0.4-1.4,0L16,14.6L8.7,7.3c-0.4-0.4-1-0.4-1.4,0  c-0.4,0.4-0.4,1,0,1.4l7.3,7.3l-7.3,7.3c-0.4,0.4-0.4,1,0,1.4C7.5,24.9,7.7,25,8,25c0.3,0,0.5-0.1,0.7-0.3l7.3-7.3l7.3,7.3  c0.2,0.2,0.5,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L17.4,16z" class="st0_1605199411492" vector-effect="non-scaling-stroke"/></g></svg>';
         //
-        this._eventHandlers.toggleItemChildren=function(){ self._toggleChildren(this); };
-        this._eventHandlers.hideItemsChildren=function(){ console.log('mouseleave'); self._hideItemsChildrenAll(); };
+        this._eventHandlers.itemInteraction=function(){ self._toggleChildren(this); };
+        this._eventHandlers.navMouseLeave=function(){ self._hideItemsChildrenAll(); };
     }
 
     init(){
         this._mobileDetect();
         let self=this;
         //
-        document.querySelector('#' + this._selectors.btnOpenId).addEventListener('click',
+        document.querySelector('#' + this._selectors.id + ' .' + this._selectors.btnOpen ).addEventListener('click',
             function(){ self._toggleNav(this) } );
         window.addEventListener('resize',function(){
             self._onResize();
@@ -57,42 +68,48 @@ class Nav01Widget {
         return this._isMobile = !window.matchMedia("(min-width: 1024px)").matches;
     }
 
+    /**
+     * Навешивает обработчики на пункты меню
+     *
+     * @private
+     */
     _setItemsEventHandler()
     {
-        let navMouseLeave, itemMouseOver, itemClick;
+        let itemEventNew, itemEventOld;
+        const nav = document.querySelector('#' + this._selectors.id);
+        //для мобильной версии обрабатываются только события клика
         if (this._isMobile)
         {
-            itemClick = this._eventHandlers.toggleItemChildren;
-            itemMouseOver = null;
-            navMouseLeave = null;
+            itemEventNew = 'click';
+            itemEventOld = 'mouseover';
+            nav.removeEventListener('mouseleave', this._eventHandlers.navMouseLeave );
         }
+        //для настольной версии обрабатываются события наведения мыши на элемент, а также уход мыши из родительского навигатора
         else
         {
-            itemClick = null;
-            itemMouseOver = this._eventHandlers.toggleItemChildren;
-            navMouseLeave = this._eventHandlers.hideItemsChildren;
+            itemEventNew = 'mouseover';
+            itemEventOld = 'click';
+            nav.addEventListener('mouseleave', this._eventHandlers.navMouseLeave );
         }
-
-        const nav = document.querySelector('#' + this._selectors.id);
-        nav.onmouseleave=navMouseLeave;
 
         const items = document.querySelectorAll('#' + this._selectors.id + ' .' + this._selectors.itemHeaderText);
         for( let n=0; n<items.length; n++ )
         {
-            //ниже код временный, т.к. надо все сделать через навешивание/удаление событий
-            items[n].onmouseover=itemMouseOver;
-            items[n].onclick=itemClick;
-
-            //TODO разобраться почему не работает удаление слушатетелей
-            //items[n].removeEventListener(eventOld, this._eventHandlers.btnOpen );
-            //items[n].addEventListener(eventNew, this._eventHandlers.btnOpen );
+            items[n].removeEventListener(itemEventOld, this._eventHandlers.itemInteraction );
+            items[n].addEventListener(itemEventNew, this._eventHandlers.itemInteraction );
         }
     }
 
+    /**
+     * Показывает/скрывает навигатационую панель
+     *
+     * @param visible Если "истина", то навигатор будет отображен, иначе скрыт
+     * @private
+     */
     _setNavVisible(visible = true){
-        const navMenu=document.querySelector('#' + this._selectors.id
-            + ' .' + this._selectors.navMenu);
-        const btnOpen=document.querySelector('#' + this._selectors.btnOpenId);
+        const nav = document.querySelector('#' + this._selectors.id);
+        const navMenu=nav.querySelector(' .' + this._selectors.navMenu);
+        const btnOpen=nav.querySelector(' .' + this._selectors.btnOpen);
         if (visible)
         {
             navMenu.style.display='flex';
@@ -105,116 +122,127 @@ class Nav01Widget {
         }
     }
 
-    _setItemOpen(item, open = true){
-        let svgContainer = false;
-        if (item.children && item.children.length>1)
+    /**
+     * Отображает пункт меню как открытый (это только для тех элементов у которых есть потомки).
+     *
+     * @param item Пункт меню
+     * @param open Если "истина", то пункт будет открытым, иначе закрытым
+     * @private
+     */
+    _setItemOpen(item, open = true)
+    {
+        if (!item.classList.contains(this._selectors.item_hasChildren)) return;
+
+        let itemHeaderSvg = item.querySelector('.' + this._selectors.itemSvg);
+        let itemHeaderText = item.querySelector('.' + this._selectors.itemHeaderText);
+        if (open)
         {
-            svgContainer = item.querySelector('.' + this._selectors.itemSvg);
-            if (open)
-            {
-                svgContainer.classList.remove(this._selectors.itemSvg_closed);
-            }
-            else
-            {
-                svgContainer.classList.add(this._selectors.itemSvg_closed);
-            }
+            itemHeaderSvg.classList.remove(this._selectors.itemSvg_closed);
+            itemHeaderText.classList.add(this._selectors.itemHeaderUnderline);
+        }
+        else
+        {
+            itemHeaderSvg.classList.add(this._selectors.itemSvg_closed);
+            itemHeaderText.classList.remove(this._selectors.itemHeaderUnderline);
         }
     }
 
     /**
-     * Скрываем все дочерние пункты меню во всем навигаторе
+     * Скрывает все контейнеры дочерних пунктов меню во всем навигаторе.
+     * Также меняет отображение этих пунктов на закрытые.
      *
      * @private
      */
     _hideItemsChildrenAll(){
-        console.log('_hideItemsChildrenAll');
-        let elements = document.querySelectorAll('#' + this._selectors.id + ' .' + this._selectors.items_children);
-        for(let n=0; n<elements.length; n++)
+        let itemsChildrenAll = document.querySelectorAll('#' + this._selectors.id
+            + ' .' + this._selectors.items_children
+        );
+        for(let n=0; n<itemsChildrenAll.length; n++)
         {
-            let item = elements[n].parentElement;
-            let itemHeaderText=item.querySelector(' .' + this._selectors.itemHeaderText);
-            elements[n].style.display='none';
-            itemHeaderText.classList.remove(this._selectors.itemHeaderUnderline);
+            itemsChildrenAll[n].style.display = 'none';
+            //
+            let item = itemsChildrenAll[n].parentElement;
             this._setItemOpen(item, false);
         }
     }
 
     /**
-     * Показывает все родительские пункты меню для указаного пункта меню.
-     * Может показать как в компактном режиме (не буду показаные соседние пункты у родительских элементов), так и без него
+     * Отображает все родительские пункты меню для указаного пункта меню.
+     * Может показать как в компактном режиме (не будут показаные соседние пункты у родительских элементов), так и без него
      *
-     * @param currentItem Пункт меню
-     * @param isCompact Компактный режим отображения
+     * @param currentItem Пункт меню, для которого надо показатель родителей
+     * @param isCompact Компактный режим отображения, либо нет
      * @private
      */
     _showParentsByItem(currentItem, isCompact=false)
     {
         do
         {
-            //сразу подчеркиваем этот пункт меню
-            let currentItemHeaderText = currentItem.querySelector('.'+ this._selectors.itemHeaderText);
-            currentItemHeaderText.classList.add( this._selectors.itemHeaderUnderline );
+            //сразу делаем этот пункт открытым
+            this._setItemOpen(currentItem);
 
-            //условие выхода - после обработки самого первого уровеня навигации (для первого уровня обработка урезанная)
+            //условие выхода - когда получили главный пункт меню
             if (currentItem.classList.contains(this._selectors.item_main)) break;
 
-            //если же это не первый уровень....
-            //показываем родительский блок с элементами меню
-            let previousItemChildren = currentItem.parentElement;
-            previousItemChildren.style.display='block';
-            this._setItemOpen(previousItemChildren.parentElement);
+            //если же это не главный пункт меню, то продолжаем переходить с уровня на уровень
+            let previousItemsChildren = currentItem.parentElement;
+            previousItemsChildren.style.display='block';
             //если компактный режим, то ВСЕ элементы, кроме данного элемента скрываем, чтобы не мешались
             if (isCompact)
-                for(let n=0; n<previousItemChildren.children.length; n++)
+                for(let n=0; n<previousItemsChildren.children.length; n++)
                 {
-                    let child = previousItemChildren.children[n];
+                    let child = previousItemsChildren.children[n];
                     if (currentItem === child) continue;
                     child.style.display='none';
                     this._setItemOpen(child, false);
                 }
             //
-            currentItem = previousItemChildren.parentElement;
+            currentItem = previousItemsChildren.parentElement;
         }
         while(true)
     }
 
-    _toggleChildren(element){
-        const item=element.parentElement.parentElement;
-        const itemHeaderText=item.querySelector('.' + this._selectors.itemHeaderText);
+    /**
+     * Показывает/скрывает дочерние элементы пункта меню, если они у него есть
+     *
+     * @param textElement Элемент с текстом пункта меню
+     * @private
+     */
+    _toggleChildren(textElement){
         /**
-         * Контейнер дочерних пунктов меню, который надо показать/скрыть
+         * Контейнер пункта меню, у которого надо показать потомков (если есть)
+         */
+        const item = textElement.parentElement.parentElement;
+        /**
+         * Контейнер дочерних элементов пункта меню, который надо показать/скрыть
          */
         const itemsChildren=item.querySelector('.' + this._selectors.items_children );
         //если нет потомков, то ничего делать не надо
         if (!itemsChildren) return;
-        //если "itemsChildren" невидимый, то показываем
+        //если контейнер с потомками невидимый, то показываем
         if (!itemsChildren.style.display || itemsChildren.style.display.match('none'))
         {
-            //скрываем все элементы "items_children", чтобы потом показать только нужные
+            //скрываем все пункты меню, чтобы потом показать только нужные
             this._hideItemsChildrenAll();
-            //потом показываем  элемент "itemsChildren" и всех его потомков
-            itemHeaderText.classList.add( this._selectors.itemHeaderUnderline );
-            this._setItemOpen(itemsChildren.parentElement);
+            //показываем контейнер с потомками невидимый, а также всех его детей (они могли быть скрыты по отдельности на мобильной версии)
             itemsChildren.style.display='block';
             for(let n=0; n<itemsChildren.children.length; n++)
             {
                 itemsChildren.children[n].style.display='block';
-                //this._setItemVisible(itemsChildren.children[n]);
             }
-            //в завершении показываем все родительские пункты
-            //в зависимости от мобильной версии или нет, показываем их компактно или нет
-            this._showParentsByItem(itemsChildren.parentElement, this._isMobile);
+            //в завершении показываем все родительские пункты, которые стоят выше
+            //в зависимости от мобильной версии или нет, показываем их компактно, либо нет
+            this._showParentsByItem(item, this._isMobile);
         }
-        //если "itemsChildren" видимый, то скрываем
+        //если "itemsChildren" видимый, то скрываем его
         else
         {
-            let item = itemsChildren.parentElement.parentElement;
-            this._setItemOpen(itemsChildren.parentElement, false);
-            //скрываем элемент "items_children", но показываем все соседние пункты меню (если они есть)
-            for(let n=0; n<item.children.length; n++)
+            //скрываем элемент "itemsChildren", но показываем все соседние пункты меню (если они есть)
+            let itemsChildrenPrev = itemsChildren.parentElement.parentElement;
+            this._setItemOpen(item, false);
+            for(let n=0; n<itemsChildrenPrev.children.length; n++)
             {
-                item.children[n].style.display='block';
-                this._setItemOpen(item.children[n], false);
+                itemsChildrenPrev.children[n].style.display='block';
             }
             itemsChildren.style.display='none';
         }
@@ -239,39 +267,51 @@ class Nav01Widget {
     }
 
     _onResize(){
-        //в мобильной версии навигациия по-умолчанию навигацию всегда скрыта
+        //в мобильной версии навигациия по-умолчанию всегда скрыта
         if (this._mobileDetect())
         {
             this._setNavVisible(false);
         }
-        //поскольку в мобильной версии навигациия может быть скрыта, то после ресайза нужно обязательно показать навигацию
-        //в настольной версиии
+        //в настольной версиии всегда видима
         else
         {
             this._hideItemsChildrenAll(); //также скрываем все элементы, которые в мобильной версии могли быть показаны
             this._setNavVisible();
         }
+        //переопределяем события для пунктов меню
         this._setItemsEventHandler();
     }
 
+    /**
+     * Рисует пункт меню
+     *
+     * @param data
+     * @param isMain Указывает должен ли является этот пункт меню главным
+     * @returns {string}
+     * @private
+     */
     _drawItem(data, isMain=false){
+        //подготовка
         const itemMainClass = isMain? ' ' +  this._selectors.item_main : '';
-        const hasChildren = (data.children && data.children.length > 0) ? ' ' + this._selectors.item_hasChildren : '';
-        const itemSvg = hasChildren ?
-                        '<div class="' + this._selectors.itemSvg + ' ' + this._selectors.itemSvg_closed + '">' + this._svg.arrowSvg + '</div>'
-                        : '';
-        // const itemUnderline = hasChildren ?
-        //                     '<div class="' + this._selectors.itemUnderline + '">_</div>'
-        //                     : '';
-        const itemHeaderTextStyle= hasChildren ? ' ' + this._selectors.itemHeaderTextBold : ' ' + this._selectors.itemHeaderTextSimple;
-        let html='';
-        html += '<div class="' + this._selectors.item + itemMainClass + hasChildren + '" >';
-        html += '<div class="' + this._selectors.itemHeader + itemHeaderTextStyle + '">' +
-            itemSvg + '<span class="' + this._selectors.itemHeaderText +'">' + HtmlHelper.encode( data.name ) + '</span>' +
-            '</div>'
-            //+ itemUnderline
-        ;
+        let hasChildrenClass = "";
+        let itemSvgClass = "";
+        let itemHeaderTextClass = this._selectors.itemHeaderTextSimple;
+        const hasChildren = data.children && data.children.length > 0;
+        if (hasChildren)
+        {
+            hasChildrenClass = ' ' + this._selectors.item_hasChildren;
+            itemSvgClass =  '<div class="' + this._selectors.itemSvg + ' ' + this._selectors.itemSvg_closed + '">' + this._svg.arrowSvg + '</div>';
+            itemHeaderTextClass= ' ' + this._selectors.itemHeaderTextBold;
+        }
 
+        //рисование пункта
+        let html='';
+        html += '<div class="' + this._selectors.item + itemMainClass + hasChildrenClass + '" >';
+        html += '<div class="' + this._selectors.itemHeader + itemHeaderTextClass + '">' +
+            itemSvgClass + '<span class="' + this._selectors.itemHeaderText +'">' + HtmlHelper.encode( data.name ) + '</span>' +
+            '</div>';
+
+        //рисование детей
         if (hasChildren)
         {
             html += '<div class="' + this._selectors.items_children + '">';
@@ -289,7 +329,7 @@ class Nav01Widget {
 
         let html =
             '<div id="' +  this._selectors.id + '"' + ' class="' + this._selectors.nav + '">' +
-                '<div id="' + this._selectors.btnOpenId +'" class="' + this._selectors.btnOpenCls +'">' +
+                '<div class="' + this._selectors.btnOpen +'">' +
                     this._svg.burger +
                 '</div>' +
                 '<nav class="' + this._selectors.navMenu + '">';

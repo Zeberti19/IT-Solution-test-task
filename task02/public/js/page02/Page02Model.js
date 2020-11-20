@@ -31,27 +31,27 @@ class Page02Model {
                 name: 'FÜR BEWERBER',
                 children: [
                     {
-                        name: 'Lvl2. Gebäudereinigung2'
+                        name: 'Lvl2. FÜR BEWERBER #1'
                     },
                     {
-                        name: 'Lvl2. Betriebsverpflegung2',
+                        name: 'Lvl2. FÜR BEWERBER #2',
                         children: [
                             {
-                                name: 'Lvl3. Random number: ' + Math.random()*1000
+                                name: 'Lvl3. FÜR BEWERBER #2. #1'
                             },
                             {
-                                name: 'Lvl3. Random number: ' + Math.random()*1000
+                                name: 'Lvl3. FÜR BEWERBER #2. #2'
                             },
                             {
-                                name: 'Lvl3. Random number: ' + Math.random()*1000
+                                name: 'Lvl3. FÜR BEWERBER #2. #3'
                             }
                         ]
                     },
                     {
-                        name: 'Lvl2. Personaldienstleistungen2'
+                        name: 'Lvl2. FÜR BEWERBER #3'
                     },
                     {
-                        name: 'Lvl2. Gastronomie-Dienstleistunge2'
+                        name: 'Lvl2. FÜR BEWERBER #4'
                     }
                 ]
             },
@@ -59,19 +59,19 @@ class Page02Model {
                 name: 'ÜBER UNS',
                 children: [
                     {
-                        name: 'Lvl2. Gebäudereinigung3'
+                        name: 'Lvl2. ÜBER UNS. #1'
                     },
                     {
-                        name: 'Lvl2. Betriebsverpflegung3',
+                        name: 'Lvl2. ÜBER UNS. #2',
                     },
                     {
-                        name: 'Lvl2. Personaldienstleistungen3'
+                        name: 'Lvl2. ÜBER UNS. #3'
                     },
                     {
-                        name: 'Lvl2. Gastronomie-Dienstleistunge3',
+                        name: 'Lvl2. ÜBER UNS. #4',
                     },
                     {
-                        name: 'Lvl2. Gastronomie-Dienstleistunge3',
+                        name: 'Lvl2. ÜBER UNS. #5',
                     }
                 ]
             },
@@ -79,43 +79,43 @@ class Page02Model {
                 name: 'KONTAKT',
                 children: [
                     {
-                        name: 'Lvl2. Gebäudereinigung4',
+                        name: 'Lvl2. KONTAKT #1',
                         children: [
                             {
-                                name: 'Lvl3. Random number: ' + Math.random()*1000
+                                name: 'Lvl3. KONTAKT #1 #1'
                             },
                             {
-                                name: 'Lvl3. Random number: ' + Math.random()*1000
+                                name: 'Lvl3. KONTAKT. #1 #2'
                             }
                         ]
                     },
                     {
-                        name: 'Lvl2. Betriebsverpflegung4',
+                        name: 'Lvl2. KONTAKT #2',
                         children: [
                             {
-                                name: 'Lvl3. Random number: ' + Math.random()*1000
+                                name: 'Lvl3. KONTAKT #2 #1'
                             },
                             {
-                                name: 'Lvl3. Random number: ' + Math.random()*1000
+                                name: 'Lvl3. KONTAKT #2 #2'
                             }
                         ]
                     },
                     {
-                        name: 'Lvl2. Personaldienstleistungen4',
+                        name: 'Lvl2. KONTAKT #3',
                         children: [
                             {
-                                name: 'Lvl3. Random number: ' + Math.random()*1000
+                                name: 'Lvl3. KONTAKT #3. #1'
                             },
                             {
-                                name: 'Lvl3. Random number: ' + Math.random()*1000
+                                name: 'Lvl3. KONTAKT #3. #2'
                             },
                             {
-                                name: 'Lvl3. Random number: ' + Math.random()*1000
+                                name: 'Lvl3. KONTAKT #3. #3'
                             }
                         ]
                     },
                     {
-                        name: 'Lvl2. Gastronomie-Dienstleistunge4',
+                        name: 'Lvl2. KONTAKT #4',
                     }
                 ]
             }
