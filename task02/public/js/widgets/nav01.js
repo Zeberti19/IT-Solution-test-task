@@ -21,11 +21,14 @@ class Nav01Widget {
         this._selectors.btnOpenCls='nav__btn-open';
         this._selectors.item='nav__item';
         this._selectors.item_main='nav__item_main';
+        this._selectors.item_hasChildren='nav__item_has-children';
         this._selectors.itemSvg='nav__item-svg';
         this._selectors.itemSvg_closed='nav__item-svg_closed';
         this._selectors.itemHeader='nav__item-header';
         this._selectors.items_children='nav__items_children';
         this._selectors.itemHeaderText='nav__item-header-text';
+        this._selectors.itemHeaderTextSimple='nav__item-header-text_simple';
+        this._selectors.itemHeaderTextBold='nav__item-header-text_bold';
         this._selectors.nav='nav';
         this._selectors.navMenu='nav__menu';
         //
@@ -34,7 +37,7 @@ class Nav01Widget {
         this._svg.cross='<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="visible" preserveAspectRatio="none" viewBox="0 0 34 34" xml:space="preserve" y="0px" x="0px" id="Layer_1_1605199411492" width="32" height="32"><g transform="translate(1, 1)"><style type="text/css">	.st0_1605199411492{fill:#2A2C2B;}</style><path d="M17.4,16l7.3-7.3c0.4-0.4,0.4-1,0-1.4c-0.4-0.4-1-0.4-1.4,0L16,14.6L8.7,7.3c-0.4-0.4-1-0.4-1.4,0  c-0.4,0.4-0.4,1,0,1.4l7.3,7.3l-7.3,7.3c-0.4,0.4-0.4,1,0,1.4C7.5,24.9,7.7,25,8,25c0.3,0,0.5-0.1,0.7-0.3l7.3-7.3l7.3,7.3  c0.2,0.2,0.5,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L17.4,16z" class="st0_1605199411492" vector-effect="non-scaling-stroke"/></g></svg>';
         //
         this._eventHandlers.toggleItemChildren=function(){ self._toggleChildren(this); };
-        this._eventHandlers.hideItemsChildren=function(){ self._hideItemsChildrenAll(); };
+        this._eventHandlers.hideItemsChildren=function(){ console.log('mouseleave'); self._hideItemsChildrenAll(); };
     }
 
     init(){
@@ -236,19 +239,20 @@ class Nav01Widget {
     }
 
     _drawItem(data, isMain=false){
-        const selectors = this._selectors;
-        let itemMainClass = isMain? ' ' +  selectors.item_main : '';
+        const itemMainClass = isMain? ' ' +  this._selectors.item_main : '';
+        const hasChildren = (data.children && data.children.length > 0) ? ' ' + this._selectors.item_hasChildren : '';
+        const itemSvg = hasChildren ?
+                        '<div class="' + this._selectors.itemSvg + ' ' + this._selectors.itemSvg_closed + '">' + this._svg.arrowSvg + '</div>'
+                        : '';
+        const itemHeaderTextStyle= hasChildren ? ' ' + this._selectors.itemHeaderTextBold : ' ' + this._selectors.itemHeaderTextSimple;
         let html='';
-        let itemSvg=(data.children && data.children.length) ?
-            '<div class="' + selectors.itemSvg + ' ' + selectors.itemSvg_closed + '">' + this._svg.arrowSvg + '</div>'
-            : '';
-        html += '<div class="' + selectors.item + itemMainClass + '" >';
-        html += '<div class="' + selectors.itemHeader + '">' +
-            itemSvg + '<span class="' + selectors.itemHeaderText +'">' + HtmlHelper.encode( data.name ) + '</span>' +
+        html += '<div class="' + this._selectors.item + itemMainClass + hasChildren + '" >';
+        html += '<div class="' + this._selectors.itemHeader + itemHeaderTextStyle + '">' +
+            itemSvg + '<span class="' + this._selectors.itemHeaderText +'">' + HtmlHelper.encode( data.name ) + '</span>' +
             '</div>';
-        if (data.children && data.children.length)
+        if (hasChildren)
         {
-            html += '<div class="' + selectors.items_children + '">';
+            html += '<div class="' + this._selectors.items_children + '">';
             for( let n=0; n<data.children.length; n++)
                 html += this._drawItem(data.children[n]);
             html += '</div>';

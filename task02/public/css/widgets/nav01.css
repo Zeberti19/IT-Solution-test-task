@@ -32,6 +32,14 @@
     font-weight: normal;
     letter-spacing: 0.1rem;
     margin: 1rem 0 0 0;
+    text-decoration: none;
+}
+@media (min-width: 1024px)
+{
+    .nav__item_main
+    {
+        width: 8.95rem;
+    }
 }
 .nav__item_main
 {
@@ -41,13 +49,35 @@
 {
     .nav__item_main
     {
+        /*margin: 0 2.45rem 0 0;*/
         margin: 0 1rem 0 0;
     }
+}
+.nav__item-header-text
+{
+    cursor: pointer;
+}
+.nav__item-header-text_simple:hover
+{
+    color: #0094d3;
+}
+.nav__item-header-text_bold
+{
+    font-weight: bold;
 }
 .nav__items_children
 {
     display: none;
+    background-color: #ffffff;
     margin: 0 0 0 2rem;
+}
+@media (min-width: 1024px)
+{
+    .nav__items_children
+    {
+        margin: 0;
+        padding: 0.95rem 0.115rem;
+    }
 }
 .nav__item-header
 {
