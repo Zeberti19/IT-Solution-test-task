@@ -1,4 +1,4 @@
-.layout1__body {
+.layout2__body {
     align-items: center;
     background: #f3f3f3;
     color: #525453;
@@ -11,15 +11,20 @@
 }
 .main-content {
     background: #fffdff;
-    padding: 6.6rem 1rem;
+    display: flex;
+    flex-direction: column;
     min-height: calc(100% - 10rem);
+    padding: 6.6rem 1rem;
     width: calc(100% - 2rem);
 }
 @media (min-width: 1024px) {
     .main-content {
-        padding: 5rem 5rem;
+        align-items: flex-start;
+        flex-direction: row;
+        justify-content: space-between;
         height: 19rem;
         min-height: auto;
+        padding: 5rem 5rem;
         width: calc(100% - 10rem);
     }
 }

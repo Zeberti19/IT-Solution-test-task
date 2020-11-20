@@ -34,17 +34,6 @@
     font-weight: bold;
 }
 /**====================================================*/
-.main-content
-{
-    display: flex;
-    flex-direction: column;
-}
-@media (min-width: 1024px) {
-    .main-content {
-        flex-direction: row;
-    }
-}
-/**====================================================*/
 .services-section {}
 @media (min-width: 1024px) {
     .services-section
@@ -145,5 +134,46 @@
     font-weight: bold;
     height: 4rem;
     width: 100%;
+}
+/**====================================================*/
+.logo
+{
+    display: none;
+}
+@media (min-width: 1024px)
+{
+    .logo
+    {
+        display: flex;
+        align-items: center;
+    }
+}
+.logo__svg-container
+{
+    height: 2.2rem;
+    width: 1.95rem;
+}
+.logo__text-container
+{
+    height: 0.85rem;
+    width: 6.65rem;
+    margin: 0 0 0 1rem;
+}
+/**====================================================*/
+.communications
+{
+    display: none;
+}
+@media (min-width: 1024px)
+{
+    .communications
+    {
+        display: flex;
+    }
+}
+.communications__facebook
+{
+    height: 1.2rem;
+    width: 1.2rem;
 }
 /**====================================================*/
