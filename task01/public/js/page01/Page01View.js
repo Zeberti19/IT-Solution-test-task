@@ -38,6 +38,6 @@ class Page01View {
             html+=this._drawService(data[n]);
         }
 
-        document.getElementById('services').innerHTML=html;
+        document.querySelector('#services').innerHTML=html;
     }
 }
