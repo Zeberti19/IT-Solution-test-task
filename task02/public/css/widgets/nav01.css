@@ -56,17 +56,21 @@
 {
     cursor: pointer;
 }
-.nav__item-header-text_simple:hover
-{
-    color: #0094d3;
+@media (min-width: 1024px) {
+    .nav__item-header-text_simple:hover {
+        color: #0094d3;
+    }
 }
 .nav__item-header-text_bold
 {
     font-weight: bold;
 }
-.nav__item-header-underline
+@media (min-width: 1024px)
 {
-    border-bottom: 0.1rem solid #0094d3;
+    .nav__item-header-underline
+    {
+        border-bottom: 0.1rem solid #0094d3;
+    }
 }
 .nav__items_children
 {
