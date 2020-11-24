@@ -23,6 +23,16 @@
     }
 }
 /**====================================================*/
+.navigation {}
+@media (min-width: 1024px)
+{
+    .navigation
+    {
+        display: flex;
+        align-items: center;
+    }
+}
+/**====================================================*/
 .logo
 {
     display: none;

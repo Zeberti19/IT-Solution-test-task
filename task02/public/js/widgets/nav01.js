@@ -46,7 +46,8 @@ class Nav01Widget {
         this._selectors.itemHeaderText='nav__item-header-text';
         this._selectors.itemHeaderTextSimple='nav__item-header-text_simple';
         this._selectors.itemHeaderTextBold='nav__item-header-text_bold';
-        this._selectors.itemHeaderUnderline='nav__item-header-underline';
+        this._selectors.itemHeaderUnderlineVisible='nav__item-header-underline-visible';
+        // this._selectors.itemHeaderUnderlineHidden='nav__item-header-underline-hidden';
         this._selectors.nav='nav';
         this._selectors.navMenu='nav__menu';
         this._selectors.navMenu_visible = 'nav__menu_visible';
@@ -148,12 +149,14 @@ class Nav01Widget {
         if (open)
         {
             itemHeaderSvg.classList.remove(this._selectors.itemSvg_closed);
-            itemHeaderText.classList.add(this._selectors.itemHeaderUnderline);
+            itemHeaderText.classList.add(this._selectors.itemHeaderUnderlineVisible);
+            // itemHeaderText.classList.remove(this._selectors.itemHeaderUnderlineHidden);
         }
         else
         {
             itemHeaderSvg.classList.add(this._selectors.itemSvg_closed);
-            itemHeaderText.classList.remove(this._selectors.itemHeaderUnderline);
+            // itemHeaderText.classList.add(this._selectors.itemHeaderUnderlineHidden);
+            itemHeaderText.classList.remove(this._selectors.itemHeaderUnderlineVisible);
         }
     }
 
@@ -322,14 +325,16 @@ class Nav01Widget {
         {
             hasChildrenClass = ' ' + this._selectors.item_hasChildren;
             itemSvgClass =  '<div class="' + this._selectors.itemSvg + ' ' + this._selectors.itemSvg_closed + '">' + this._svg.arrowSvg + '</div>';
-            itemHeaderTextClass= ' ' + this._selectors.itemHeaderTextBold;
+            itemHeaderTextClass= ' ' + this._selectors.itemHeaderTextBold
+                // + ' ' + this._selectors.itemHeaderUnderlineHidden
+            ;
         }
 
         //рисование пункта
         let html='';
         html += '<li class="' + this._selectors.item + itemMainClass + hasChildrenClass + '" >';
-        html +=     '<div class="' + this._selectors.itemHeader + itemHeaderTextClass + '">' +
-                    itemSvgClass + '<a class="' + this._selectors.itemHeaderText +'">' + HtmlHelper.encode( data.name ) + '</a>' +
+        html +=     '<div class="' + this._selectors.itemHeader +  '">' +
+                    itemSvgClass + '<a class="' + this._selectors.itemHeaderText + itemHeaderTextClass + '">' + HtmlHelper.encode( data.name ) + '</a>' +
                     '</div>';
 
         //рисование детей

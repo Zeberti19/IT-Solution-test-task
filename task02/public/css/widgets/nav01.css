@@ -64,10 +64,19 @@
         width: 7.95rem;
     }
 }
+.nav__item_has-children{}
+@media (min-width: 1024px)
+{
+    .nav__item_has-children
+    {
+        min-height: 1.1rem;
+    }
+}
 .nav__item-header-text
 {
     cursor: pointer;
 }
+.nav__item-header-text_simple {}
 @media (min-width: 1024px) {
     .nav__item-header-text_simple:hover {
         color: #0094d3;
@@ -77,26 +86,19 @@
 {
     font-weight: bold;
 }
+.nav__item-header-underline-visible {}
 @media (min-width: 1024px)
 {
-    .nav__item-header-underline
+    .nav__item-header-underline-visible
     {
         border-bottom: 0.1rem solid #0094d3;
     }
 }
 .nav__item-children
 {
-    background-color: #ffffff;
     flex-direction: column;
     list-style-type: none;
     padding: 0;
-}
-@media (min-width: 1024px)
-{
-    .nav__item-children
-    {
-        padding: 0.95rem 0.115rem;
-    }
 }
 /**Класс используется только для задания видимости, других стилей от него не ожидается*/
 .nav__item-children_visible
@@ -108,7 +110,10 @@
 {
     display: none;
 }
-.nav__item-children_main {}
+.nav__item-children_main
+{
+    margin: 0;
+}
 @media (min-width: 1024px)
 {
     .nav__item-children_main
@@ -118,7 +123,15 @@
 }
 .nav__item-children_dropdown
 {
+    background-color: #ffffff;
     margin: 0 0 0 2.6rem;
+}
+@media (min-width: 1024px)
+{
+    .nav__item-children_dropdown
+    {
+        padding: 0.95rem 0.115rem;
+    }
 }
 @media (min-width: 1024px) {
     .nav__item-children_dropdown
