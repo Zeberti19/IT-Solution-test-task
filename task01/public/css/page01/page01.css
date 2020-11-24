@@ -1,95 +1,103 @@
-html
-{
-    font-size: 0.8rem;
-}
 .article_simple
 {
+    display: flex;
+    flex-direction: column;
     color: #525453;
-    position: relative;
-    padding: 1.5rem 6% 0;
+    /*position: relative;*/
+    padding: 1rem;
+
 }
 @media (min-width: 1024px) {
     .article_simple
     {
-        width: 38%;
+        margin-right: 2rem;
+        width: 30%;
+        max-width: 26.5rem;
     }
 }
-.article_simple__header-container
+.article_simple__header-text
 {
     color: #2a2c2b;
+    font-size: 1rem;
 }
 @media (min-width: 1024px) {
-    .article_simple__header-container
+    .article_simple__header-text
     {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
 }
+/*@media (min-width: 1024px) {*/
+/*    .article_simple__header-container*/
+/*    {*/
+/*        font-size: 1.25rem;*/
+/*    }*/
+/*}*/
 .article_simple__text-container
 {
-    line-height: 2rem;
+    line-height: 1.6rem;
+    font-size: 0.8rem;
 }
-.article_simple__href-container{
-    position: absolute;
-    top: 0;
-    height: 1.5rem;
+@media (min-width: 1024px) {
+    .article_simple__text-container
+    {
+        font-size: 1rem;
+    }
+}
+.article_simple__href-container
+{
+    order: -1;
 }
 .article_simple__href{
     color: #2a2c2b;
+    font-size: 0.8rem;
     font-weight: bold;
 }
 /**====================================================*/
-.main-content
-{
-    display: flex;
-    flex-direction: column;
-}
-@media (min-width: 1024px) {
-    .main-content {
-        flex-direction: row;
-    }
-}
+
 /**====================================================*/
 .services-section {}
 @media (min-width: 1024px) {
     .services-section
     {
-        width: 50%;
+        width: 70%;
+        max-width: 34.5rem;
     }
 }
 /**====================================================*/
 .service-container
 {
+    align-items: center;
+    display: flex;
+    /*justify-content: flex-start;*/
+    flex-wrap: wrap;
     background-color: #ffffff;
-    margin: 0.5rem;
+    margin-bottom: 0.5rem;
     padding: 1rem;
 }
 @media (min-width: 1024px) {
     .service-container
     {
         align-items: center;
-        display: flex;
-        justify-content: space-between;
-        position: relative;
-        padding: 1rem 5rem 1rem 1rem;
+        flex-wrap: nowrap;
+        /*display: flex;*/
+        /*justify-content: flex-start;*/
+        /*position: relative;*/
+        padding: 1rem;
     }
 }
 .service-container__description
 {
+    font-size: 0.8rem;
     margin: 0.5rem 0;
 }
-@media (min-width: 1024px) {
-    .service-container__icon-container_big
-    {
-        position: absolute;
-        left: 1rem;
-        width: 5rem;
-    }
+.service-container__header-container
+{
+    flex-basis: 100%;
 }
-.service-container__header-container {}
 @media (min-width: 1024px) {
     .service-container__header-container
     {
-        margin: 0 0 0 6rem; /*TODO здесь должна быть выражание препроцессора $iconWidth + 1rem*/
+        flex-basis: auto;
     }
 }
 .service-container__header
@@ -102,34 +110,48 @@ html
 {
     display: flex;
 }
+@media (min-width: 1024px) {
+    .service-container__icons-container
+    {
+        order: -1;
+    }
+}
 .service-container__icon-container_big
 {
+    align-items: center;
     display: flex;
-    position: relative;
+    justify-content: center;
+    margin: 0 1rem 0 0;
+    height: 3rem;
+    width: 3rem;
 }
 @media (min-width: 1024px) {
     .service-container__icon-container_big
     {
-        position: absolute;
-        left: 1rem;
-        top: 50%;
-        transform: translate(0%,-50%);
-        width: 5rem; /*TODO здесь должна быть переменная препроцессора $iconWidth*/
+        height: 4rem;
+        width: 4rem;
+        /*left: 1rem;*/
+        /*top: 50%;*/
+        /*position: absolute;*/
+        /*transform: translate(0%,-50%);*/
     }
 }
 .service-container__icon-image
 {
-    left: 50%;
-    top: 50%;
-    position: absolute;
-    z-index: 1;
-    transform: translate(-50%, -50%);
+    height: 1.8rem;
+    width: 1.55rem;
+}
+@media (min-width: 1024px) {
+    .service-container__icon-image
+    {
+        height: 2.2rem;
+        width: 1.9rem;
+    }
 }
 .service-container__actions
 {
     display: flex;
     flex-direction: column;
-    margin: 0 0 0 1rem;
 }
 @media (min-width: 1024px) {
     .service-container .figure-mini:first-child {

@@ -47,7 +47,6 @@ class Nav01Widget {
         this._selectors.itemHeaderTextSimple='nav__item-header-text_simple';
         this._selectors.itemHeaderTextBold='nav__item-header-text_bold';
         this._selectors.itemHeaderUnderlineVisible='nav__item-header-underline-visible';
-        // this._selectors.itemHeaderUnderlineHidden='nav__item-header-underline-hidden';
         this._selectors.nav='nav';
         this._selectors.navMenu='nav__menu';
         this._selectors.navMenu_visible = 'nav__menu_visible';
@@ -361,8 +360,8 @@ class Nav01Widget {
                     this._svg.burger +
                 '</div>' +
                 '<nav class="' + this._selectors.navMenu + navVisibleHidden + '">' +
-                    '<ul class="' + this._selectors.itemChildren + ' ' + this._selectors.itemChildren_visible
-            + ' ' + this._selectors.itemChildren_main + '">';
+                    '<ul class="' + this._selectors.itemChildren + ' ' + this._selectors.itemChildren_visible +
+                                    ' ' + this._selectors.itemChildren_main + '">';
         for (let n=0; n<data.length; n++)
         {
             html += this._drawItem(data[n], true);

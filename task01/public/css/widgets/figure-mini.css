@@ -7,11 +7,16 @@
 @media (min-width: 1024px) {
     .figure-mini
     {
-        margin: 1rem;
+        /*margin: 1rem;*/
     }
 }
-.figure-mini__icon {}
+.figure-mini__icon
+{
+    height: 0.8rem;
+    width: 0.8rem;
+}
 .figure-mini__text
 {
+    font-size: 0.8rem;
     margin-left: 0.5rem;
 }
