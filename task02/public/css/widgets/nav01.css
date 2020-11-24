@@ -1,15 +1,23 @@
 .nav__menu
 {
-    display: none;
     flex-direction: column;
 }
 @media (min-width: 1024px)
 {
     .nav__menu
     {
-        display: flex;
         flex-direction: row;
     }
+}
+/**Класс используется только для задания видимости, других стилей от него не ожидается*/
+.nav__menu_visible
+{
+    display: flex;
+}
+/**Класс используется только для задания невидимости, других стилей от него не ожидается*/
+.nav__menu_hidden
+{
+    display: none;
 }
 .nav__btn-open
 {
@@ -34,12 +42,15 @@
     margin: 1rem 0 0 0;
     text-decoration: none;
 }
-@media (min-width: 1024px)
+/**Класс используется только для задания видимости, других стилей от него не ожидается*/
+.nav__item_visible
 {
-    .nav__item_main
-    {
-        width: 7.95rem;
-    }
+    display: block;
+}
+/**Класс используется только для задания невидимости, других стилей от него не ожидается*/
+.nav__item_hidden
+{
+    display: none;
 }
 .nav__item_main
 {
@@ -50,6 +61,7 @@
     .nav__item_main
     {
         margin: 0 1rem 0 0;
+        width: 7.95rem;
     }
 }
 .nav__item-header-text
@@ -74,16 +86,44 @@
 }
 .nav__items_children
 {
-    display: none;
     background-color: #ffffff;
-    margin: 0 0 0 2.6rem;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
 }
 @media (min-width: 1024px)
 {
     .nav__items_children
     {
-        margin: 0;
         padding: 0.95rem 0.115rem;
+    }
+}
+/**Класс используется только для задания видимости, других стилей от него не ожидается*/
+.nav__items_children_visible
+{
+    display: flex;
+}
+/**Класс используется только для задания невидимости, других стилей от него не ожидается*/
+.nav__items_children_hidden
+{
+    display: none;
+}
+.nav__items_children_main {}
+@media (min-width: 1024px)
+{
+    .nav__items_children_main
+    {
+        flex-direction: row;
+    }
+}
+.nav__items_children_dropdown
+{
+    margin: 0 0 0 2.6rem;
+}
+@media (min-width: 1024px) {
+    .nav__items_children_dropdown
+    {
+        margin: 0;
     }
 }
 .nav__item-header
