@@ -84,7 +84,7 @@
         border-bottom: 0.1rem solid #0094d3;
     }
 }
-.nav__items_children
+.nav__item-children
 {
     background-color: #ffffff;
     flex-direction: column;
@@ -93,35 +93,35 @@
 }
 @media (min-width: 1024px)
 {
-    .nav__items_children
+    .nav__item-children
     {
         padding: 0.95rem 0.115rem;
     }
 }
 /**Класс используется только для задания видимости, других стилей от него не ожидается*/
-.nav__items_children_visible
+.nav__item-children_visible
 {
     display: flex;
 }
 /**Класс используется только для задания невидимости, других стилей от него не ожидается*/
-.nav__items_children_hidden
+.nav__item-children_hidden
 {
     display: none;
 }
-.nav__items_children_main {}
+.nav__item-children_main {}
 @media (min-width: 1024px)
 {
-    .nav__items_children_main
+    .nav__item-children_main
     {
         flex-direction: row;
     }
 }
-.nav__items_children_dropdown
+.nav__item-children_dropdown
 {
     margin: 0 0 0 2.6rem;
 }
 @media (min-width: 1024px) {
-    .nav__items_children_dropdown
+    .nav__item-children_dropdown
     {
         margin: 0;
     }

@@ -37,11 +37,11 @@ class Nav01Widget {
         this._selectors.item_hasChildren='nav__item_has-children';
         this._selectors.itemSvg='nav__item-svg';
         this._selectors.itemSvg_closed='nav__item-svg_closed';
-        this._selectors.items_children='nav__items_children';
-        this._selectors.items_children_main='nav__items_children_main';
-        this._selectors.items_children_dropdown='nav__items_children_dropdown';
-        this._selectors.items_children_visible='nav__items_children_visible';
-        this._selectors.items_children_hidden='nav__items_children_hidden';
+        this._selectors.itemChildren='nav__item-children';
+        this._selectors.itemChildren_main='nav__item-children_main';
+        this._selectors.itemChildren_dropdown='nav__item-children_dropdown';
+        this._selectors.itemChildren_visible='nav__item-children_visible';
+        this._selectors.itemChildren_hidden='nav__item-children_hidden';
         this._selectors.itemHeader='nav__item-header';
         this._selectors.itemHeaderText='nav__item-header-text';
         this._selectors.itemHeaderTextSimple='nav__item-header-text_simple';
@@ -57,7 +57,7 @@ class Nav01Widget {
         this._svg.cross='<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="visible" preserveAspectRatio="none" viewBox="0 0 34 34" xml:space="preserve" y="0px" x="0px" id="Layer_1_1605199411492" width="32" height="32"><g transform="translate(1, 1)"><style type="text/css">	.st0_1605199411492{fill:#2A2C2B;}</style><path d="M17.4,16l7.3-7.3c0.4-0.4,0.4-1,0-1.4c-0.4-0.4-1-0.4-1.4,0L16,14.6L8.7,7.3c-0.4-0.4-1-0.4-1.4,0  c-0.4,0.4-0.4,1,0,1.4l7.3,7.3l-7.3,7.3c-0.4,0.4-0.4,1,0,1.4C7.5,24.9,7.7,25,8,25c0.3,0,0.5-0.1,0.7-0.3l7.3-7.3l7.3,7.3  c0.2,0.2,0.5,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L17.4,16z" class="st0_1605199411492" vector-effect="non-scaling-stroke"/></g></svg>';
         //
         this._eventHandlers.itemInteraction=function(){ self._toggleChildren(this); };
-        this._eventHandlers.navMouseLeave=function(){ self._hideItemsChildrenAll(); };
+        this._eventHandlers.navMouseLeave=function(){ self._hideItemChildrenAll(); };
     }
 
     init(){
@@ -163,15 +163,15 @@ class Nav01Widget {
      *
      * @private
      */
-    _hideItemsChildrenAll(){
+    _hideItemChildrenAll(){
         let itemsChildrenAll = document.querySelectorAll('#' + this._selectors.id
-            + ' .' + this._selectors.items_children + ' .' + this._selectors.items_children_dropdown
+            + ' .' + this._selectors.itemChildren + ' .' + this._selectors.itemChildren_dropdown
         );
         for(let n=0; n<itemsChildrenAll.length; n++)
         {
             let child = itemsChildrenAll[n];
-            child.classList.remove(this._selectors.items_children_visible);
-            child.classList.add(this._selectors.items_children_hidden);
+            child.classList.remove(this._selectors.itemChildren_visible);
+            child.classList.add(this._selectors.itemChildren_hidden);
             //
             let item = child.parentElement;
             this._setItemOpen(item, false);
@@ -198,8 +198,8 @@ class Nav01Widget {
 
             //если же это не главный пункт меню, то продолжаем переходить с уровня на уровень
             let previousItemsChildren = currentItem.parentElement;
-            previousItemsChildren.classList.remove(this._selectors.items_children_hidden);
-            previousItemsChildren.classList.add(this._selectors.items_children_visible);
+            previousItemsChildren.classList.remove(this._selectors.itemChildren_hidden);
+            previousItemsChildren.classList.add(this._selectors.itemChildren_visible);
             //если компактный режим, то ВСЕ элементы, кроме данного элемента скрываем, чтобы не мешались
             if (isCompact)
                 for(let n=0; n<previousItemsChildren.children.length; n++)
@@ -230,17 +230,17 @@ class Nav01Widget {
         /**
          * Контейнер дочерних элементов пункта меню, который надо показать/скрыть
          */
-        const itemsChildren=item.querySelector('.' + this._selectors.items_children );
+        const itemsChildren=item.querySelector('.' + this._selectors.itemChildren );
         //если нет потомков, то ничего делать не надо
         if (!itemsChildren) return;
         //если контейнер с потомками невидимый, то показываем
-        if (itemsChildren.classList.contains(this._selectors.items_children_hidden))
+        if (itemsChildren.classList.contains(this._selectors.itemChildren_hidden))
         {
             //скрываем все пункты меню, чтобы потом показать только нужные
-            this._hideItemsChildrenAll();
+            this._hideItemChildrenAll();
             //показываем контейнер с потомками невидимый, а также всех его детей (они могли быть скрыты по отдельности на мобильной версии)
-            itemsChildren.classList.remove(this._selectors.items_children_hidden);
-            itemsChildren.classList.add(this._selectors.items_children_visible);
+            itemsChildren.classList.remove(this._selectors.itemChildren_hidden);
+            itemsChildren.classList.add(this._selectors.itemChildren_visible);
             for(let n=0; n<itemsChildren.children.length; n++)
             {
                 let child = itemsChildren.children[n];
@@ -263,8 +263,8 @@ class Nav01Widget {
                 child.classList.remove(this._selectors.item_hidden);
                 child.classList.add(this._selectors.item_visible);
             }
-            itemsChildren.classList.remove(this._selectors.items_children_visible);
-            itemsChildren.classList.add(this._selectors.items_children_hidden);
+            itemsChildren.classList.remove(this._selectors.itemChildren_visible);
+            itemsChildren.classList.add(this._selectors.itemChildren_hidden);
         }
     }
 
@@ -296,7 +296,7 @@ class Nav01Widget {
         //в настольной версиии всегда видима
         else
         {
-            this._hideItemsChildrenAll(); //также скрываем все элементы, которые в мобильной версии могли быть показаны
+            this._hideItemChildrenAll(); //также скрываем все элементы, которые в мобильной версии могли быть показаны
             this._setNavVisible();
         }
         //переопределяем события для пунктов меню
@@ -335,7 +335,7 @@ class Nav01Widget {
         //рисование детей
         if (hasChildren)
         {
-            html += '<ul class="' + this._selectors.items_children + ' ' + this._selectors.items_children_dropdown + ' ' + this._selectors.items_children_hidden +  '">';
+            html += '<ul class="' + this._selectors.itemChildren + ' ' + this._selectors.itemChildren_dropdown + ' ' + this._selectors.itemChildren_hidden +  '">';
             for( let n=0; n<data.children.length; n++)
                 html += this._drawItem(data.children[n]);
             html += '</ul>';
@@ -356,8 +356,8 @@ class Nav01Widget {
                     this._svg.burger +
                 '</div>' +
                 '<nav class="' + this._selectors.navMenu + navVisibleHidden + '">' +
-                    '<ul class="' + this._selectors.items_children + ' ' + this._selectors.items_children_visible
-            + ' ' + this._selectors.items_children_main + '">';
+                    '<ul class="' + this._selectors.itemChildren + ' ' + this._selectors.itemChildren_visible
+            + ' ' + this._selectors.itemChildren_main + '">';
         for (let n=0; n<data.length; n++)
         {
             html += this._drawItem(data[n], true);
