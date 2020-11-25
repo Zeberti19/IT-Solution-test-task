@@ -17,9 +17,7 @@ class Page01View {
                     '</div>' +
                     '<div class="service-container__icons-container">' +
                         '<div class="service-container__icon-container_big" style="background-color: ' + HtmlHelper.encode(data.iconBackgroundColor) + '">' +
-                            '<div class="service-container__icon-image">' +
-                                data.iconSvg +
-                            '</div>' +
+                            data.iconSvg +
                         '</div>' +
                     '</div>' +
                     '<div class="service-container__actions">' +

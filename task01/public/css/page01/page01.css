@@ -11,18 +11,26 @@
     {
         margin-right: 2rem;
         margin-bottom: 0;
-        width: 30%;
-        max-width: 26.5rem;
+        /*width: 30%;*/
+        padding: 0;
+        max-width: 28.5rem;
     }
 }
 .article_simple__header-container
 {
     margin: 0 0 1.5rem 0;
 }
+@media (min-width: 1024px) {
+    .article_simple__header-container
+    {
+        margin: 0 0 2.25rem 0;
+    }
+}
 .article_simple__header-text
 {
     color: #2a2c2b;
     font-size: 1rem;
+    letter-spacing: 0.05rem;
     margin: 0;
 }
 @media (min-width: 1024px) {
@@ -33,7 +41,7 @@
 }
 .article_simple__text-container
 {
-    line-height: 1.6rem;
+    line-height: 1.8rem;
     font-size: 0.8rem;
 }
 @media (min-width: 1024px) {
@@ -46,10 +54,20 @@
 {
     margin: 0 0 1.5rem 0;
 }
+@media (min-width: 1024px) {
+    .article_simple__text-paragraph {
+        margin: 0 0 2.5rem 0;
+    }
+}
 .article_simple__href-container
 {
     margin: 0 0 1.5rem 0;
     order: -1;
+}
+@media (min-width: 1024px) {
+    .article_simple__href-container {
+        margin: 0 0 2.5rem 0;
+    }
 }
 .article_simple__href{
     color: #2a2c2b;
@@ -120,28 +138,48 @@
     display: flex;
     justify-content: center;
     margin: 0 1rem 0 0;
+    /*height: 1.8rem;*/
+    /*width: 1.5rem;*/
     height: 3rem;
     width: 3rem;
+    /*padding: 0.6rem 0.75rem;*/
 }
 @media (min-width: 1024px) {
     .service-container__icon-container_big
     {
+        /*height: 1.9rem;*/
+        /*width: 2.2rem;*/
+        /*padding: 0.9rem 1.05rem;*/
         height: 4rem;
         width: 4rem;
     }
 }
-.service-container__icon-image
+.service-container__icon-container_big svg
 {
-    height: 1.8rem;
-    width: 1.55rem;
+    height: auto;
+    width: auto;
+    max-height: 2.4rem;
+    max-width: 2.4rem;
 }
 @media (min-width: 1024px) {
-    .service-container__icon-image
+    .service-container__icon-container_big svg
     {
-        height: 2.2rem;
-        width: 1.9rem;
+        max-height: 3.8rem;
+        max-width: 3.8rem;
     }
 }
+/*.service-container__icon-image*/
+/*{*/
+/*    height: 1.8rem;*/
+/*    width: 1.55rem;*/
+/*}*/
+/*@media (min-width: 1024px) {*/
+/*    .service-container__icon-image*/
+/*    {*/
+/*        height: 2.2rem;*/
+/*        width: 1.9rem;*/
+/*    }*/
+/*}*/
 .service-container__actions
 {
     display: flex;
@@ -163,7 +201,7 @@
     color: #ffffff;
     display: flex;
     font-weight: bold;
-    height: 4rem;
+    height: 3.4rem;
     width: 100%;
 }
 /**====================================================*/
