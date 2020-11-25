@@ -5,10 +5,7 @@
     margin: 0;
 }
 @media (min-width: 1024px) {
-    .figure-mini
-    {
-        /*margin: 1rem;*/
-    }
+    .figure-mini {}
 }
 .figure-mini__icon
 {

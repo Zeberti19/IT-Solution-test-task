@@ -39,6 +39,7 @@ class Nav01Widget {
         this._selectors.itemSvg_closed='nav__item-svg_closed';
         this._selectors.itemChildren='nav__item-children';
         this._selectors.itemChildren_main='nav__item-children_main';
+        this._selectors.itemChildrenContainer_main='nav__item-children-container_main';
         this._selectors.itemChildren_dropdown='nav__item-children_dropdown';
         this._selectors.itemChildren_visible='nav__item-children_visible';
         this._selectors.itemChildren_hidden='nav__item-children_hidden';
@@ -149,12 +150,10 @@ class Nav01Widget {
         {
             itemHeaderSvg.classList.remove(this._selectors.itemSvg_closed);
             itemHeaderText.classList.add(this._selectors.itemHeaderUnderlineVisible);
-            // itemHeaderText.classList.remove(this._selectors.itemHeaderUnderlineHidden);
         }
         else
         {
             itemHeaderSvg.classList.add(this._selectors.itemSvg_closed);
-            // itemHeaderText.classList.add(this._selectors.itemHeaderUnderlineHidden);
             itemHeaderText.classList.remove(this._selectors.itemHeaderUnderlineVisible);
         }
     }
@@ -166,8 +165,8 @@ class Nav01Widget {
      * @private
      */
     _hideItemChildrenAll(){
-        let itemsChildrenAll = document.querySelectorAll('#' + this._selectors.id
-            + ' .' + this._selectors.itemChildren + ' .' + this._selectors.itemChildren_dropdown
+        let itemsChildrenAll = document.querySelectorAll('#' + this._selectors.id +
+                                                                  ' .' + this._selectors.itemChildren_dropdown
         );
         for(let n=0; n<itemsChildrenAll.length; n++)
         {
@@ -176,6 +175,7 @@ class Nav01Widget {
             child.classList.add(this._selectors.itemChildren_hidden);
             //
             let item = child.parentElement;
+            if (item.classList.contains(this._selectors.itemChildrenContainer_main)) item = item.parentElement;
             this._setItemOpen(item, false);
         }
     }
@@ -190,13 +190,24 @@ class Nav01Widget {
      */
     _showParentsByItem(currentItem, isCompact=false)
     {
+        //сразу делаем этот пункт открытым
+        this._setItemOpen(currentItem);
+
+        //если же это главный пункт меню, то ничего больше делать не надо
+        if (currentItem.classList.contains(this._selectors.item_main)) return;
+
+        //если же нет, то начинаем перебирать родителей
         do
         {
-            //сразу делаем этот пункт открытым
-            this._setItemOpen(currentItem);
+            //условие выхода - когда получили контейнер дочерних элементов главного пункта меню
+            if (currentItem.classList.contains(this._selectors.itemChildrenContainer_main))
+            {
+                //тем не менее в таком случае  нужно сделать главный пункт меню открытым
+                this._setItemOpen(currentItem.parentElement);
+                break;
+            }
 
-            //условие выхода - когда получили главный пункт меню
-            if (currentItem.classList.contains(this._selectors.item_main)) break;
+            this._setItemOpen(currentItem);
 
             //если же это не главный пункт меню, то продолжаем переходить с уровня на уровень
             let previousItemsChildren = currentItem.parentElement;
@@ -226,7 +237,7 @@ class Nav01Widget {
      */
     _toggleChildren(textElement){
         /**
-         * Контейнер пункта меню, у которого надо показать потомков (если есть)
+         * Контейнер пункта меню, у которого надо показать потомков (если есть эти потомки)
          */
         const item = textElement.parentElement.parentElement;
         /**
@@ -315,7 +326,15 @@ class Nav01Widget {
      */
     _drawItem(data, isMain=false){
         //подготовка
-        const itemMainClass = isMain? ' ' +  this._selectors.item_main : '';
+        let itemMainClass = '';
+        // let itemChildrenDropdown01 = '';
+        let itemChildrenContainerTemplate = ':content';
+        if (isMain)
+        {
+            itemMainClass = isMain? ' ' +  this._selectors.item_main : '';
+            itemChildrenContainerTemplate = '<div class="' + this._selectors.itemChildrenContainer_main + '">:content</div>';
+        }
+
         let hasChildrenClass = "";
         let itemSvgClass = "";
         let itemHeaderTextClass = ' ' + this._selectors.itemHeaderTextSimple;
@@ -339,10 +358,13 @@ class Nav01Widget {
         //рисование детей
         if (hasChildren)
         {
-            html += '<ul class="' + this._selectors.itemChildren + ' ' + this._selectors.itemChildren_dropdown + ' ' + this._selectors.itemChildren_hidden +  '">';
+            let itemChildrenHtml =
+                '       <ul class="' + this._selectors.itemChildren + ' ' + this._selectors.itemChildren_dropdown +
+                                       ' ' + this._selectors.itemChildren_hidden +  '">';
             for( let n=0; n<data.children.length; n++)
-                html += this._drawItem(data.children[n]);
-            html += '</ul>';
+                itemChildrenHtml += this._drawItem(data.children[n]);
+            itemChildrenHtml += '</ul>';
+            html += itemChildrenContainerTemplate.replace(':content', itemChildrenHtml);
         }
         html += '</li>';
 

@@ -41,6 +41,7 @@
     letter-spacing: 0.1rem;
     margin: 1rem 0 0 0;
     text-decoration: none;
+    position: relative;
 }
 /**Класс используется только для задания видимости, других стилей от него не ожидается*/
 .nav__item_visible
@@ -61,7 +62,6 @@
     .nav__item_main
     {
         margin: 0 1rem 0 0;
-        width: 7.95rem;
     }
 }
 .nav__item_has-children{}
@@ -119,6 +119,7 @@
     .nav__item-children_main
     {
         flex-direction: row;
+        justify-content: space-between;
     }
 }
 .nav__item-children_dropdown
@@ -130,14 +131,25 @@
 {
     .nav__item-children_dropdown
     {
+        margin: 0;
         padding: 0.95rem 0.115rem;
     }
 }
-@media (min-width: 1024px) {
-    .nav__item-children_dropdown
+.nav__item-children-container_main{}
+@media (min-width: 1024px)
+{
+    .nav__item-children-container_main
     {
-        margin: 0;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        left: 50%;
+        min-width: 9.5rem;
+        padding: 0 1.2rem 0;
+        position: absolute;
+        transform: translate(-50%,0);
     }
+
 }
 .nav__item-header
 {
