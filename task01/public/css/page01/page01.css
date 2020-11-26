@@ -181,12 +181,18 @@
     flex-direction: column;
 }
 @media (min-width: 1024px) {
-    .service-container__actions {
+    .service-container__actions
+    {
         width: 35%;
     }
 }
+.service-container__actions .figure-mini
+{
+    margin: 0 0 0.5rem 0;
+}
 @media (min-width: 1024px) {
-    .service-container__actions .figure-mini {
+    .service-container__actions .figure-mini
+    {
         margin: 0 0 0.55rem 0;
     }
 }
