@@ -1,14 +1,3 @@
-.main-content__container
-{
-    display: flex;
-    flex-direction: column;
-}
-@media (min-width: 1024px) {
-    .main-content__container {
-        flex-direction: row;
-        justify-content: space-around;
-    }
-}
 .article_simple
 {
     display: flex;
@@ -68,6 +57,10 @@
     .article_simple__text-paragraph {
         margin: 0 0 2.5rem 0;
     }
+}
+.article_simple__text-paragraph:last-child
+{
+    margin: 0;
 }
 .article_simple__href-container
 {

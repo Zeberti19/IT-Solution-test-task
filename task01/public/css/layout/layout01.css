@@ -12,15 +12,15 @@
     }
 }
 .main-content {
-    display: flex;
     background: #f3f5f7;
+    display: flex;
     flex-direction: column;
     padding: 2.8rem 1rem 3rem;
 }
 @media (min-width: 1024px) {
     .main-content {
         align-items: center;
-        justify-content: center;
+        justify-content: space-evenly;
         flex-direction: row;
         height: 35rem;
         min-height: auto;
