@@ -24,5 +24,6 @@
         flex-direction: row;
         height: 35rem;
         min-height: auto;
+        width: calc( 100% - 2rem );
     }
 }
