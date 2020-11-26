@@ -4,7 +4,7 @@
     flex-direction: column;
     color: #525453;
     padding: 0 1rem 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 3rem;
 }
 @media (min-width: 1024px) {
     .article_simple
@@ -182,7 +182,7 @@
 }
 @media (min-width: 1024px) {
     .service-container__actions {
-        width: 25%;
+        width: 35%;
     }
 }
 @media (min-width: 1024px) {
