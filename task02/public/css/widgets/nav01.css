@@ -145,6 +145,7 @@
     .nav__item-children-container_main
     {
         background-color: #ffffff;
+        box-shadow: 0 0.6rem 1.6rem rgba(0,0,0,0.05);
         display: flex;
         justify-content: center;
         left: 50%;
@@ -153,7 +154,6 @@
         position: absolute;
         transform: translate(-50%,0);
     }
-
 }
 .nav__item-header
 {
