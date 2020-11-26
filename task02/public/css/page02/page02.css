@@ -20,11 +20,8 @@
     .main-content__section-right
     {
         margin-left: 2rem;
+        margin-top: 2rem;
     }
-}
-.main-content__elements_right
-{
-    margin-top: 0.65rem;
 }
 /**====================================================*/
 .navigation {}

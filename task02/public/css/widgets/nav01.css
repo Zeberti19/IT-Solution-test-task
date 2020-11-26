@@ -56,12 +56,16 @@
 .nav__item_main
 {
     font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 3rem;
 }
 @media (min-width: 1024px)
 {
     .nav__item_main
     {
-        margin: 0 1rem 0 0;
+        margin-top: 0;
+        margin-right: 1rem;
+        margin-bottom: 0;
     }
 }
 .nav__item_has-children{}
